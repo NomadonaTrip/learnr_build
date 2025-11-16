@@ -1,0 +1,9 @@
+# BMAD™ Core Configuration
+# This file contains the core settings for your BMAD™ installation
+
+project_name: "learnr_build"
+bmad_folder: ".bmad"
+output_folder: "docs"
+user_name: "Developer"
+communication_language: "English"
+document_output_language: "English"
