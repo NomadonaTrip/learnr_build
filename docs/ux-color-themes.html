@@ -1,0 +1,659 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LearnR - Color Theme Explorer</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: #f5f5f5;
+            padding: 20px;
+            line-height: 1.6;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .header h1 {
+            font-size: 32px;
+            margin-bottom: 10px;
+            color: #333;
+        }
+
+        .header p {
+            color: #666;
+            font-size: 16px;
+        }
+
+        .theme-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(600px, 1fr));
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        .theme-card {
+            background: white;
+            border-radius: 16px;
+            padding: 30px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .theme-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+        }
+
+        .theme-header {
+            margin-bottom: 25px;
+        }
+
+        .theme-name {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .theme-description {
+            color: #666;
+            font-size: 14px;
+            line-height: 1.5;
+        }
+
+        .color-palette {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+            margin-bottom: 25px;
+        }
+
+        .color-swatch {
+            border-radius: 8px;
+            padding: 16px;
+            text-align: center;
+            color: white;
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .color-hex {
+            font-size: 10px;
+            opacity: 0.9;
+            margin-top: 4px;
+            font-weight: 400;
+        }
+
+        .components-section {
+            margin-top: 25px;
+        }
+
+        .section-title {
+            font-size: 14px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 15px;
+            color: #666;
+        }
+
+        .button-group {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin-bottom: 20px;
+        }
+
+        .btn {
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            border: none;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-family: inherit;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+
+        .progress-demo {
+            margin-bottom: 20px;
+        }
+
+        .progress-bar {
+            background: #e0e0e0;
+            border-radius: 8px;
+            height: 12px;
+            overflow: hidden;
+            margin-bottom: 8px;
+        }
+
+        .progress-fill {
+            height: 100%;
+            border-radius: 8px;
+            transition: width 0.3s;
+        }
+
+        .progress-label {
+            font-size: 12px;
+            color: #666;
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 4px;
+        }
+
+        .card-demo {
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 15px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        }
+
+        .alert {
+            padding: 12px 16px;
+            border-radius: 8px;
+            font-size: 14px;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .input-demo {
+            width: 100%;
+            padding: 12px 16px;
+            border-radius: 8px;
+            font-size: 14px;
+            font-family: inherit;
+            margin-bottom: 12px;
+        }
+
+        .theme-personality {
+            margin-top: 20px;
+            padding: 16px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            font-size: 13px;
+        }
+
+        .personality-item {
+            margin-bottom: 8px;
+        }
+
+        .personality-label {
+            font-weight: 600;
+            color: #333;
+        }
+
+        .personality-value {
+            color: #666;
+        }
+
+        @media (max-width: 768px) {
+            .theme-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>🎨 LearnR Color Theme Explorer</h1>
+        <p>Explore 4 carefully crafted color themes blending Duolingo's engaging approach with professional credibility.</p>
+        <p style="margin-top: 8px; font-size: 14px;">Each theme includes live UI components, full color palettes, and personality descriptions.</p>
+    </div>
+
+    <div class="theme-grid">
+        <!-- Theme 1: Professional Trust -->
+        <div class="theme-card">
+            <div class="theme-header">
+                <div class="theme-name" style="color: #1976D2;">Theme 1: Professional Trust</div>
+                <div class="theme-description">
+                    A confident, trustworthy palette inspired by top learning platforms. Deep blue conveys expertise and credibility while maintaining approachability for career-focused professionals.
+                </div>
+            </div>
+
+            <div class="color-palette">
+                <div class="color-swatch" style="background: #1976D2;">
+                    Primary
+                    <div class="color-hex">#1976D2</div>
+                </div>
+                <div class="color-swatch" style="background: #42A5F5;">
+                    Secondary
+                    <div class="color-hex">#42A5F5</div>
+                </div>
+                <div class="color-swatch" style="background: #66BB6A;">
+                    Success
+                    <div class="color-hex">#66BB6A</div>
+                </div>
+                <div class="color-swatch" style="background: #FFA726;">
+                    Warning
+                    <div class="color-hex">#FFA726</div>
+                </div>
+                <div class="color-swatch" style="background: #EF5350;">
+                    Error
+                    <div class="color-hex">#EF5350</div>
+                </div>
+                <div class="color-swatch" style="background: #29B6F6; color: #333;">
+                    Info
+                    <div class="color-hex">#29B6F6</div>
+                </div>
+            </div>
+
+            <div class="components-section">
+                <div class="section-title">Buttons</div>
+                <div class="button-group">
+                    <button class="btn" style="background: #1976D2; color: white;">Start Learning</button>
+                    <button class="btn" style="background: white; color: #1976D2; border: 2px solid #1976D2;">View Progress</button>
+                    <button class="btn" style="background: #42A5F5; color: white;">Continue</button>
+                </div>
+
+                <div class="section-title">Progress Tracking</div>
+                <div class="progress-demo">
+                    <div class="progress-label">
+                        <span>Business Analysis Planning & Monitoring</span>
+                        <span style="color: #1976D2; font-weight: 600;">75%</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 75%; background: #1976D2;"></div>
+                    </div>
+                </div>
+                <div class="progress-demo">
+                    <div class="progress-label">
+                        <span>Requirements Elicitation</span>
+                        <span style="color: #66BB6A; font-weight: 600;">92%</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 92%; background: #66BB6A;"></div>
+                    </div>
+                </div>
+
+                <div class="section-title">Dashboard Card</div>
+                <div class="card-demo" style="background: white; border: 1px solid #e0e0e0;">
+                    <div style="font-weight: 600; margin-bottom: 8px; color: #333;">Today's Learning Session</div>
+                    <div style="color: #666; font-size: 14px; margin-bottom: 12px;">You have 3 reviews due and 12 new questions ready</div>
+                    <button class="btn" style="background: #1976D2; color: white; width: 100%;">Begin Session</button>
+                </div>
+
+                <div class="section-title">Feedback Messages</div>
+                <div class="alert" style="background: #E3F2FD; color: #1565C0; border-left: 4px solid #1976D2;">
+                    <span>ℹ️</span> Your next review session starts in 2 hours
+                </div>
+                <div class="alert" style="background: #E8F5E9; color: #2E7D32; border-left: 4px solid #66BB6A;">
+                    <span>✓</span> Correct! Great job understanding this concept.
+                </div>
+                <div class="alert" style="background: #FFECB3; color: #F57C00; border-left: 4px solid #FFA726;">
+                    <span>⚠</span> You have 5 overdue review questions
+                </div>
+
+                <div class="section-title">Form Input</div>
+                <input type="text" class="input-demo" placeholder="Enter your answer..."
+                    style="border: 2px solid #e0e0e0; color: #333;"
+                    onfocus="this.style.borderColor='#1976D2'; this.style.outline='none';"
+                    onblur="this.style.borderColor='#e0e0e0';">
+            </div>
+
+            <div class="theme-personality">
+                <div class="personality-item">
+                    <span class="personality-label">Emotional Impact:</span>
+                    <span class="personality-value">Trustworthy, Competent, Focused</span>
+                </div>
+                <div class="personality-item">
+                    <span class="personality-label">Best For:</span>
+                    <span class="personality-value">Career-focused professionals, corporate learners, serious exam prep</span>
+                </div>
+                <div class="personality-item">
+                    <span class="personality-label">Visual Style:</span>
+                    <span class="personality-value">Professional, clean, data-driven</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Theme 2: Encouraging Progress -->
+        <div class="theme-card">
+            <div class="theme-header">
+                <div class="theme-name" style="color: #43A047;">Theme 2: Encouraging Progress</div>
+                <div class="theme-description">
+                    Inspired by Duolingo but matured for professionals. Green emphasizes growth, achievement, and forward momentum. Balances encouragement with credibility for adult learners.
+                </div>
+            </div>
+
+            <div class="color-palette">
+                <div class="color-swatch" style="background: #43A047;">
+                    Primary
+                    <div class="color-hex">#43A047</div>
+                </div>
+                <div class="color-swatch" style="background: #66BB6A;">
+                    Secondary
+                    <div class="color-hex">#66BB6A</div>
+                </div>
+                <div class="color-swatch" style="background: #2E7D32;">
+                    Success
+                    <div class="color-hex">#2E7D32</div>
+                </div>
+                <div class="color-swatch" style="background: #FB8C00;">
+                    Warning
+                    <div class="color-hex">#FB8C00</div>
+                </div>
+                <div class="color-swatch" style="background: #E53935;">
+                    Error
+                    <div class="color-hex">#E53935</div>
+                </div>
+                <div class="color-swatch" style="background: #1976D2; color: white;">
+                    Info
+                    <div class="color-hex">#1976D2</div>
+                </div>
+            </div>
+
+            <div class="components-section">
+                <div class="section-title">Buttons</div>
+                <div class="button-group">
+                    <button class="btn" style="background: #43A047; color: white;">Start Learning</button>
+                    <button class="btn" style="background: white; color: #43A047; border: 2px solid #43A047;">View Progress</button>
+                    <button class="btn" style="background: #66BB6A; color: white;">Continue</button>
+                </div>
+
+                <div class="section-title">Progress Tracking</div>
+                <div class="progress-demo">
+                    <div class="progress-label">
+                        <span>Business Analysis Planning & Monitoring</span>
+                        <span style="color: #43A047; font-weight: 600;">75%</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 75%; background: #43A047;"></div>
+                    </div>
+                </div>
+                <div class="progress-demo">
+                    <div class="progress-label">
+                        <span>Requirements Elicitation</span>
+                        <span style="color: #2E7D32; font-weight: 600;">92%</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 92%; background: #2E7D32;"></div>
+                    </div>
+                </div>
+
+                <div class="section-title">Dashboard Card</div>
+                <div class="card-demo" style="background: white; border: 1px solid #e0e0e0;">
+                    <div style="font-weight: 600; margin-bottom: 8px; color: #333;">Today's Learning Session</div>
+                    <div style="color: #666; font-size: 14px; margin-bottom: 12px;">You have 3 reviews due and 12 new questions ready</div>
+                    <button class="btn" style="background: #43A047; color: white; width: 100%;">Begin Session</button>
+                </div>
+
+                <div class="section-title">Feedback Messages</div>
+                <div class="alert" style="background: #E3F2FD; color: #0D47A1; border-left: 4px solid #1976D2;">
+                    <span>ℹ️</span> Your next review session starts in 2 hours
+                </div>
+                <div class="alert" style="background: #E8F5E9; color: #1B5E20; border-left: 4px solid #43A047;">
+                    <span>✓</span> Correct! Great job understanding this concept.
+                </div>
+                <div class="alert" style="background: #FFF3E0; color: #E65100; border-left: 4px solid #FB8C00;">
+                    <span>⚠</span> You have 5 overdue review questions
+                </div>
+
+                <div class="section-title">Form Input</div>
+                <input type="text" class="input-demo" placeholder="Enter your answer..."
+                    style="border: 2px solid #e0e0e0; color: #333;"
+                    onfocus="this.style.borderColor='#43A047'; this.style.outline='none';"
+                    onblur="this.style.borderColor='#e0e0e0';">
+            </div>
+
+            <div class="theme-personality">
+                <div class="personality-item">
+                    <span class="personality-label">Emotional Impact:</span>
+                    <span class="personality-value">Encouraging, Growth-oriented, Positive</span>
+                </div>
+                <div class="personality-item">
+                    <span class="personality-label">Best For:</span>
+                    <span class="personality-value">Motivated learners, progress enthusiasts, achievement-focused users</span>
+                </div>
+                <div class="personality-item">
+                    <span class="personality-label">Visual Style:</span>
+                    <span class="personality-value">Motivational, friendly, optimistic</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Theme 3: Focused Learning -->
+        <div class="theme-card">
+            <div class="theme-header">
+                <div class="theme-name" style="color: #5E35B1;">Theme 3: Focused Learning</div>
+                <div class="theme-description">
+                    Purple/indigo palette evokes creativity, wisdom, and deep focus. Perfect for sustained concentration during study sessions while maintaining visual interest and sophistication.
+                </div>
+            </div>
+
+            <div class="color-palette">
+                <div class="color-swatch" style="background: #5E35B1;">
+                    Primary
+                    <div class="color-hex">#5E35B1</div>
+                </div>
+                <div class="color-swatch" style="background: #7E57C2;">
+                    Secondary
+                    <div class="color-hex">#7E57C2</div>
+                </div>
+                <div class="color-swatch" style="background: #66BB6A;">
+                    Success
+                    <div class="color-hex">#66BB6A</div>
+                </div>
+                <div class="color-swatch" style="background: #FF9800;">
+                    Warning
+                    <div class="color-hex">#FF9800</div>
+                </div>
+                <div class="color-swatch" style="background: #F4433 6;">
+                    Error
+                    <div class="color-hex">#F44336</div>
+                </div>
+                <div class="color-swatch" style="background: #42A5F5; color: white;">
+                    Info
+                    <div class="color-hex">#42A5F5</div>
+                </div>
+            </div>
+
+            <div class="components-section">
+                <div class="section-title">Buttons</div>
+                <div class="button-group">
+                    <button class="btn" style="background: #5E35B1; color: white;">Start Learning</button>
+                    <button class="btn" style="background: white; color: #5E35B1; border: 2px solid #5E35B1;">View Progress</button>
+                    <button class="btn" style="background: #7E57C2; color: white;">Continue</button>
+                </div>
+
+                <div class="section-title">Progress Tracking</div>
+                <div class="progress-demo">
+                    <div class="progress-label">
+                        <span>Business Analysis Planning & Monitoring</span>
+                        <span style="color: #5E35B1; font-weight: 600;">75%</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 75%; background: #5E35B1;"></div>
+                    </div>
+                </div>
+                <div class="progress-demo">
+                    <div class="progress-label">
+                        <span>Requirements Elicitation</span>
+                        <span style="color: #66BB6A; font-weight: 600;">92%</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 92%; background: #66BB6A;"></div>
+                    </div>
+                </div>
+
+                <div class="section-title">Dashboard Card</div>
+                <div class="card-demo" style="background: white; border: 1px solid #e0e0e0;">
+                    <div style="font-weight: 600; margin-bottom: 8px; color: #333;">Today's Learning Session</div>
+                    <div style="color: #666; font-size: 14px; margin-bottom: 12px;">You have 3 reviews due and 12 new questions ready</div>
+                    <button class="btn" style="background: #5E35B1; color: white; width: 100%;">Begin Session</button>
+                </div>
+
+                <div class="section-title">Feedback Messages</div>
+                <div class="alert" style="background: #EDE7F6; color: #4527A0; border-left: 4px solid #5E35B1;">
+                    <span>ℹ️</span> Your next review session starts in 2 hours
+                </div>
+                <div class="alert" style="background: #E8F5E9; color: #2E7D32; border-left: 4px solid #66BB6A;">
+                    <span>✓</span> Correct! Great job understanding this concept.
+                </div>
+                <div class="alert" style="background: #FFF3E0; color: #EF6C00; border-left: 4px solid #FF9800;">
+                    <span>⚠</span> You have 5 overdue review questions
+                </div>
+
+                <div class="section-title">Form Input</div>
+                <input type="text" class="input-demo" placeholder="Enter your answer..."
+                    style="border: 2px solid #e0e0e0; color: #333;"
+                    onfocus="this.style.borderColor='#5E35B1'; this.style.outline='none';"
+                    onblur="this.style.borderColor='#e0e0e0';">
+            </div>
+
+            <div class="theme-personality">
+                <div class="personality-item">
+                    <span class="personality-label">Emotional Impact:</span>
+                    <span class="personality-value">Focused, Creative, Insightful</span>
+                </div>
+                <div class="personality-item">
+                    <span class="personality-label">Best For:</span>
+                    <span class="personality-value">Deep learners, analytical thinkers, premium positioning</span>
+                </div>
+                <div class="personality-item">
+                    <span class="personality-label">Visual Style:</span>
+                    <span class="personality-value">Sophisticated, calm, intellectually stimulating</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Theme 4: Energetic Achievement -->
+        <div class="theme-card">
+            <div class="theme-header">
+                <div class="theme-name" style="color: #FF6F42;">Theme 4: Energetic Achievement</div>
+                <div class="theme-description">
+                    Warm coral/orange paired with trustworthy blue creates energy and reliability. Stands out visually while maintaining professional credibility. Great for engagement and motivation.
+                </div>
+            </div>
+
+            <div class="color-palette">
+                <div class="color-swatch" style="background: #FF6F42;">
+                    Primary
+                    <div class="color-hex">#FF6F42</div>
+                </div>
+                <div class="color-swatch" style="background: #1976D2;">
+                    Secondary
+                    <div class="color-hex">#1976D2</div>
+                </div>
+                <div class="color-swatch" style="background: #66BB6A;">
+                    Success
+                    <div class="color-hex">#66BB6A</div>
+                </div>
+                <div class="color-swatch" style="background: #FFA726;">
+                    Warning
+                    <div class="color-hex">#FFA726</div>
+                </div>
+                <div class="color-swatch" style="background: #E53935;">
+                    Error
+                    <div class="color-hex">#E53935</div>
+                </div>
+                <div class="color-swatch" style="background: #29B6F6; color: #333;">
+                    Info
+                    <div class="color-hex">#29B6F6</div>
+                </div>
+            </div>
+
+            <div class="components-section">
+                <div class="section-title">Buttons</div>
+                <div class="button-group">
+                    <button class="btn" style="background: #FF6F42; color: white;">Start Learning</button>
+                    <button class="btn" style="background: white; color: #FF6F42; border: 2px solid #FF6F42;">View Progress</button>
+                    <button class="btn" style="background: #1976D2; color: white;">Continue</button>
+                </div>
+
+                <div class="section-title">Progress Tracking</div>
+                <div class="progress-demo">
+                    <div class="progress-label">
+                        <span>Business Analysis Planning & Monitoring</span>
+                        <span style="color: #FF6F42; font-weight: 600;">75%</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 75%; background: #FF6F42;"></div>
+                    </div>
+                </div>
+                <div class="progress-demo">
+                    <div class="progress-label">
+                        <span>Requirements Elicitation</span>
+                        <span style="color: #66BB6A; font-weight: 600;">92%</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 92%; background: #66BB6A;"></div>
+                    </div>
+                </div>
+
+                <div class="section-title">Dashboard Card</div>
+                <div class="card-demo" style="background: white; border: 1px solid #e0e0e0;">
+                    <div style="font-weight: 600; margin-bottom: 8px; color: #333;">Today's Learning Session</div>
+                    <div style="color: #666; font-size: 14px; margin-bottom: 12px;">You have 3 reviews due and 12 new questions ready</div>
+                    <button class="btn" style="background: #FF6F42; color: white; width: 100%;">Begin Session</button>
+                </div>
+
+                <div class="section-title">Feedback Messages</div>
+                <div class="alert" style="background: #E1F5FE; color: #01579B; border-left: 4px solid #1976D2;">
+                    <span>ℹ️</span> Your next review session starts in 2 hours
+                </div>
+                <div class="alert" style="background: #E8F5E9; color: #2E7D32; border-left: 4px solid #66BB6A;">
+                    <span>✓</span> Correct! Great job understanding this concept.
+                </div>
+                <div class="alert" style="background: #FFEBEE; color: #C62828; border-left: 4px solid #E53935;">
+                    <span>⚠</span> You have 5 overdue review questions
+                </div>
+
+                <div class="section-title">Form Input</div>
+                <input type="text" class="input-demo" placeholder="Enter your answer..."
+                    style="border: 2px solid #e0e0e0; color: #333;"
+                    onfocus="this.style.borderColor='#FF6F42'; this.style.outline='none';"
+                    onblur="this.style.borderColor='#e0e0e0';">
+            </div>
+
+            <div class="theme-personality">
+                <div class="personality-item">
+                    <span class="personality-label">Emotional Impact:</span>
+                    <span class="personality-value">Energetic, Confident, Dynamic</span>
+                </div>
+                <div class="personality-item">
+                    <span class="personality-label">Best For:</span>
+                    <span class="personality-value">Engagement-focused, memorable branding, standing out from competitors</span>
+                </div>
+                <div class="personality-item">
+                    <span class="personality-label">Visual Style:</span>
+                    <span class="personality-value">Bold, warm, approachable yet professional</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="header" style="margin-top: 0;">
+        <h2 style="font-size: 24px; margin-bottom: 15px;">👆 Which theme speaks to you?</h2>
+        <p style="margin-bottom: 10px;">Take your time exploring each theme. Notice how different colors make you feel.</p>
+        <p style="font-size: 14px; color: #666;">
+            <strong>Theme 1:</strong> Trustworthy & professional (LinkedIn/Coursera vibe)<br>
+            <strong>Theme 2:</strong> Encouraging & growth-focused (Duolingo matured)<br>
+            <strong>Theme 3:</strong> Focused & sophisticated (premium learning)<br>
+            <strong>Theme 4:</strong> Energetic & memorable (stands out, warm + trust)
+        </p>
+    </div>
+</body>
+</html>
