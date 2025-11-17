@@ -160,15 +160,15 @@ flowchart TD
 - **Transition**: After question 5, fade to session complete screen
 
 ### Stage 3: Session Complete Summary
-- **Screen**: Session summary card (centered, modal style)
+- **Screen**: Session summary card (centered, modal style, 22px border radius)
 - **Content**:
-  - "Session Complete! 🎉"
+  - "Session Complete!" with celebration vector icon (party popper or stars burst)
   - Score: "4 out of 5 correct"
   - **Updated Competency Scores** (show deltas):
     - Strategy Analysis: 40% → 48% (+8%)
     - Requirements Analysis: 55% → 58% (+3%)
-  - Daily Streak: "7 day streak! 🔥"
-  - CTA: "View Detailed Reading" button (primary green)
+  - Daily Streak: "7 day streak!" with flame vector icon (Material Icons: local_fire_department)
+  - CTA: "View Detailed Reading" button (primary green, pill-shaped)
 - **User Action**: Clicks "View Detailed Reading"
 - **Transition**: Navigate to reading content screen
 
@@ -303,8 +303,8 @@ flowchart TD
 
   **Section 1: Overall Progress Header**
   - Large heading: "Your CBAP Mastery Progress"
-  - Daily streak: "12 days 🔥" (prominent, top-right)
-  - Exam readiness: "68% - Approaching Ready" (progress bar with green fill)
+  - Daily streak: "12 days" with flame vector icon (Material Icons: local_fire_department) - prominent, top-right
+  - Exam readiness: "68% - Approaching Ready" (progress bar with green fill, pill-shaped)
 
   **Section 2: Parallel KA Competency Scores** (primary visualization)
   - **6 Knowledge Area Cards** (2x3 grid):
@@ -511,24 +511,24 @@ The system determines "next experience" based on the following priority:
 
 **Template**:
 ```
-[Icon: ✓ or ✗]
+[Icon: Checkmark vector icon (correct) or X vector icon (incorrect) - Material Icons: check_circle or cancel]
 [Result: "Correct!" or "Incorrect. The answer is [B]."]
 [Explanation: One clear sentence explaining why. Max 150 chars.]
-[CTA: "Continue" or "Next Question" button]
+[CTA: "Continue" or "Next Question" button - pill-shaped, green]
 ```
 
 **Example - Correct**:
 ```
-✓ Correct!
+[Checkmark Icon - Green] Correct!
 Facilitated workshops are most effective for gathering diverse stakeholder input and achieving consensus on requirements.
-[Continue]
+[Continue - Pill Button]
 ```
 
 **Example - Incorrect**:
 ```
-✗ Incorrect. The answer is B.
+[X Icon - Red] Incorrect. The answer is B.
 While interviews are valuable, facilitated workshops bring stakeholders together to collaboratively define requirements in real-time.
-[Continue]
+[Continue - Pill Button]
 ```
 
 ### Parallel KA Progress Visualization

@@ -47,14 +47,19 @@ Users should feel:
 
 **Material UI Customization:**
 - Default Material Design with custom theme overrides
+- **Framer-inspired visual design**: Smooth organic shapes, pill-shaped buttons, generous border radii
+- **Inter font family**: Modern, highly legible sans-serif (replacing Roboto)
 - Primary color: #CDF348 (bright lime green)
 - Minimal color palette (3 colors + semantic)
 - Custom component variants for quiz and learning components
 - Both light and dark mode support
+- **Vector icons only**: Material Icons (no emojis for consistent cross-platform rendering)
 
 **Version:** Material UI v5.14+ (with Emotion for styling)
 
 **Design System Documentation:** https://mui.com/material-ui/
+
+**Visual Design Inspiration:** Framer website templates (framer.com/templates) - known for smooth, modern aesthetics with organic shapes, subtle animations, and professional typography
 
 ---
 
@@ -250,8 +255,15 @@ Semantic:
 ### 3.2 Typography
 
 **Font Families:**
-- **All text**: 'Roboto', sans-serif (Material UI default)
-- **Monospace** (if needed): 'Roboto Mono', monospace
+- **All text**: 'Inter', sans-serif
+- **Monospace** (if needed): 'JetBrains Mono', monospace
+
+**Rationale:** Inter is a highly legible sans-serif designed specifically for computer screens, with excellent readability at small sizes and a professional, modern appearance. Widely used in modern SaaS products (Framer, Linear, Notion).
+
+**Font Loading:**
+```html
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+```
 
 **Type Scale:**
 ```
@@ -265,7 +277,7 @@ h6: 16px (1rem), weight 500, line-height 1.5
 Body (primary): 16px (1rem), weight 400, line-height 1.5
 Body (secondary): 14px (0.875rem), weight 400, line-height 1.43
 
-Button: 14px (0.875rem), weight 500, uppercase, letter-spacing 0.02em
+Button: 14px (0.875rem), weight 500, sentence case (not uppercase)
 Caption: 12px (0.75rem), weight 400, line-height 1.66
 ```
 
@@ -273,7 +285,7 @@ Caption: 12px (0.75rem), weight 400, line-height 1.66
 - Semantic HTML (h1-h6) for accessibility
 - Max line length: 75 characters for readability
 - Comfortable line-height for reading content: 1.6
-- Button text: Always uppercase (Material UI standard)
+- Button text: Sentence case, medium weight (Framer-inspired modern style)
 
 ### 3.3 Spacing & Layout
 
@@ -288,6 +300,17 @@ lg: 24px  (3 units)
 xl: 32px  (4 units)
 xxl: 48px (6 units)
 ```
+
+**Border Radius Hierarchy (Framer-Inspired):**
+```
+Main screen containers: 35px   (large, smooth curves)
+Primary information cards: 22px (medium-large, soft corners)
+Secondary cards: 14px          (medium, subtle rounding)
+Icons: 8-12px                  (small, gentle rounding)
+Buttons: pill-shaped           (fully rounded, 9999px)
+```
+
+**Rationale:** Larger border radii create a modern, soft, approachable aesthetic inspired by Framer website templates. The hierarchy establishes visual importance through progressive rounding—larger containers have more pronounced curves, creating depth and focus.
 
 **Layout Grid:**
 - **Container max-width**: 1280px (lg breakpoint)
@@ -351,7 +374,7 @@ xxl: 48px (6 units)
 - **Sections**:
   1. **Overall Progress Header**:
      - Exam readiness percentage (progress bar)
-     - Daily streak (fire emoji 🔥 + count, top-right)
+     - Daily streak (flame vector icon + count, top-right)
   2. **6 Knowledge Area Cards** (2x3 grid on desktop, stacked on mobile):
      - Each card: KA name, current score (circular progress), weekly growth indicator ("+8% ↑" in green)
   3. **Study Activity Timeline**: Line chart showing all 6 KA scores over past 4 weeks
@@ -605,10 +628,10 @@ System determines "next experience" based on priority:
 **2. BriefFeedbackDisplay**
 - **Purpose:** Show immediate feedback after quiz answer (≤300 chars)
 - **Content:**
-  - Icon: ✓ (correct, green) or ✗ (incorrect, red) - 24px
+  - Icon: Checkmark vector icon (correct, green) or X vector icon (incorrect, red) - 24px (Material Icons: check_circle or cancel)
   - Result text: "Correct!" or "Incorrect. The answer is B." - medium weight
   - Explanation: One sentence (max 150 chars) - normal weight
-  - CTA: "Continue" button (primary green, full-width or right-aligned)
+  - CTA: "Continue" button (primary green, pill-shaped, full-width or right-aligned)
 - **States:**
   - Correct: Green background (#E8F5E9 light mode), green text
   - Incorrect: Red background (#FFEBEE light mode), red text
@@ -681,12 +704,12 @@ System determines "next experience" based on priority:
 **7. DailyStreakBadge**
 - **Purpose:** Motivational display of consecutive learning days
 - **Content:**
-  - Fire emoji 🔥 (24px)
+  - Flame vector icon (24px, orange - Material Icons: local_fire_department)
   - Text: "12 day streak"
-  - Pill-shaped badge (border-radius 20px)
+  - Pill-shaped badge (border-radius 9999px, fully rounded)
 - **States:**
   - Active streak: Light orange background (#FFF3E0), orange border (#FF9800)
-  - Broken streak (if applicable): Gray background, gray border, broken chain icon
+  - Broken streak (if applicable): Gray background, gray border, broken chain vector icon
 - **Variants:**
   - Compact (dashboard header): Inline badge
   - Prominent (session complete): Large centered element with animation
@@ -931,9 +954,211 @@ xl: 1920px+ (Large desktops)
 
 ---
 
-## 9. Implementation Guidance
+## 9. Framer-Inspired Design Principles
 
-### 9.1 Completion Summary
+LearnR's visual design draws heavy inspiration from **Framer website templates** (framer.com/templates), adapting their modern, professional aesthetic for an educational technology platform.
+
+### 9.1 Core Framer Design Patterns
+
+**1. Organic, Generous Border Radii**
+- Framer templates use large, smooth border radii that create approachable, modern interfaces
+- LearnR applies a hierarchical border radius system:
+  - Main containers: 35px (prominent, smooth curves)
+  - Primary cards: 22px (soft, welcoming corners)
+  - Secondary cards: 14px (subtle rounding)
+  - Icons: 8-12px (gentle polish)
+  - Buttons: Pill-shaped (9999px, fully rounded)
+- Creates visual depth through progressive rounding
+
+**2. Pill-Shaped Buttons**
+- Fully rounded buttons (border-radius: 9999px) instead of sharp 4px corners
+- Creates organic, friendly interaction points
+- Encourages user engagement through inviting, touchable shapes
+- Applied consistently across all button variants (primary, secondary, tertiary)
+
+**3. Inter Typography**
+- Framer heavily uses Inter font family for its screen-optimized legibility
+- LearnR adopts Inter throughout the interface (replacing Material UI's default Roboto)
+- Sentence case for buttons (not uppercase) for modern, approachable tone
+- Excellent readability at all sizes: 12px captions to 40px headings
+
+**4. Subtle, Sophisticated Micro-Interactions**
+- Hover states use subtle scale (1.02) instead of only color changes
+- Press states scale down (0.98) for tactile feedback
+- Smooth easing curves: `cubic-bezier(0.4, 0, 0.2, 1)` for natural motion
+- Animations feel responsive and organic, not mechanical
+
+**5. Soft, Diffused Shadows**
+- Elevation creates depth without harsh edges
+- Shadows are subtle and blend naturally with light/dark modes
+- Avoid Material Design's sharp, pronounced shadow layers
+- Support for both light mode (subtle gray shadows) and dark mode (deeper, softer shadows)
+
+**6. Generous White Space**
+- Clean, uncluttered layouts with breathing room
+- Strategic use of space to guide attention
+- Avoid cramming information—let components breathe
+- Balance between data density (professional requirement) and visual comfort
+
+**7. Vector Icons Only (No Emojis)**
+- Emojis render inconsistently across platforms (iOS, Android, Windows, macOS)
+- Material Icons provide consistent, professional appearance
+- Scalable and accessible (proper ARIA labels, color contrast)
+- Examples:
+  - Checkmark: `check_circle` (not ✓)
+  - Error: `cancel` or `error` (not ✗)
+  - Warning: `warning_amber` (not ⚠)
+  - Info: `info` or `info_outline` (not ℹ)
+  - Flame (streak): `local_fire_department` (not 🔥)
+
+### 9.2 Material UI Theming for Framer Style
+
+**Implementation Example:**
+
+```javascript
+import { createTheme } from '@mui/material/styles';
+
+const theme = createTheme({
+  typography: {
+    fontFamily: "'Inter', sans-serif",
+    button: {
+      textTransform: 'none', // Sentence case, Framer style
+      fontWeight: 500,
+    },
+    h1: { fontWeight: 700 },
+    h2: { fontWeight: 600 },
+    h3: { fontWeight: 600 },
+    h4: { fontWeight: 600 },
+    h5: { fontWeight: 500 },
+    h6: { fontWeight: 500 },
+  },
+
+  palette: {
+    mode: 'light',
+    primary: {
+      main: '#CDF348',
+      contrastText: '#212121',
+    },
+    background: {
+      default: '#FFFFFF',
+      paper: '#FFFFFF',
+    },
+    text: {
+      primary: '#212121',
+      secondary: '#666666',
+    },
+  },
+
+  shape: {
+    borderRadius: 14, // Default for most components (secondary cards)
+  },
+
+  components: {
+    MuiButton: {
+      styleOverrides: {
+        root: {
+          borderRadius: 9999, // Pill-shaped
+          padding: '10px 24px',
+          '&:hover': {
+            transform: 'scale(1.02)', // Framer-style subtle scale
+            transition: 'transform 150ms cubic-bezier(0.4, 0, 0.2, 1)',
+          },
+          '&:active': {
+            transform: 'scale(0.98)',
+          },
+        },
+      },
+    },
+
+    MuiCard: {
+      styleOverrides: {
+        root: {
+          borderRadius: 22, // Primary information cards
+          boxShadow: '0 2px 12px rgba(0, 0, 0, 0.08)', // Soft shadow
+        },
+      },
+    },
+
+    MuiPaper: {
+      styleOverrides: {
+        rounded: {
+          borderRadius: 22, // Modals, dialogs
+        },
+        elevation1: {
+          boxShadow: '0 2px 8px rgba(0, 0, 0, 0.06)',
+        },
+        elevation2: {
+          boxShadow: '0 2px 12px rgba(0, 0, 0, 0.08)',
+        },
+        elevation3: {
+          boxShadow: '0 4px 16px rgba(0, 0, 0, 0.1)',
+        },
+      },
+    },
+
+    MuiLinearProgress: {
+      styleOverrides: {
+        root: {
+          borderRadius: 9999, // Pill-shaped progress bars
+          height: 8,
+        },
+      },
+    },
+
+    MuiTextField: {
+      styleOverrides: {
+        root: {
+          '& .MuiOutlinedInput-root': {
+            borderRadius: 12, // Smooth corners for inputs
+          },
+        },
+      },
+    },
+  },
+});
+
+export default theme;
+```
+
+### 9.3 Design Decision Rationale
+
+**Why Framer-Inspired Design?**
+
+1. **Professional + Approachable**: Framer templates balance sophistication with warmth—perfect for professional learners who need a serious tool that doesn't feel intimidating
+
+2. **Modern, Not Trendy**: Framer's design language is contemporary but timeless—won't feel dated in 2-3 years like overly trendy designs
+
+3. **Proven Engagement**: Framer's templates are used by successful SaaS products (Linear, Notion, etc.) with high user satisfaction
+
+4. **Accessibility Compatible**: Soft shapes and generous spacing support accessibility (larger touch targets, better focus indicators, comfortable reading)
+
+5. **Differentiation**: Most learning platforms use Material Design defaults or Bootstrap—Framer-inspired design makes LearnR visually distinctive
+
+6. **Implementation Feasibility**: Material UI's theming system allows Framer aesthetics while maintaining component functionality—best of both worlds
+
+**Why Inter Font?**
+- Screen-optimized legibility (designed for digital interfaces)
+- Wide character set (supports 200+ languages for future expansion)
+- Excellent performance (variable font reduces load times)
+- Professional association (used by GitHub, Figma, Stripe)
+
+**Why Pill-Shaped Buttons?**
+- Reduces visual weight (no sharp corners competing for attention)
+- Encourages clicks (rounded shapes feel more touchable)
+- Modern standard (Apple, Google, Microsoft all use rounded buttons in latest designs)
+- Consistency (same shape for primary, secondary, tertiary maintains hierarchy through color/border only)
+
+**Why Vector Icons Instead of Emojis?**
+- Cross-platform consistency (emojis look different on iOS vs Android vs Windows)
+- Professional appearance (vector icons feel intentional, emojis can feel casual/unpredictable)
+- Accessibility (vector icons have proper ARIA labels, predictable sizing)
+- Design control (can adjust color, size, weight—emojis are fixed)
+
+---
+
+## 10. Implementation Guidance
+
+### 10.1 Completion Summary
 
 **Workflow Completion Status:**
 

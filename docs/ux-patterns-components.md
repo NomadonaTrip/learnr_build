@@ -9,9 +9,11 @@ _Material UI Design System with Custom Adaptations_
 
 This document defines consistency rules and component specifications for LearnR's user interface. All components follow Material UI patterns with custom theming using the approved color system.
 
-**Design System**: Material UI (MUI) v5+
+**Design System**: Material UI (MUI) v5+ with Framer-inspired visual design
 **Primary Accent**: #CDF348 (bright lime green)
 **Color Palette**: Minimal 3-color approach (green, background, text)
+**Typography**: Inter font family
+**Visual Style**: Smooth, modern aesthetic inspired by Framer website templates
 
 ---
 
@@ -109,9 +111,19 @@ This document defines consistency rules and component specifications for LearnR'
 ## 2. Typography
 
 ### Font Families
-- **Headings**: 'Roboto', sans-serif (Material UI default)
-- **Body**: 'Roboto', sans-serif
-- **Monospace**: 'Roboto Mono', monospace (for code, if needed)
+- **Headings**: 'Inter', sans-serif
+- **Body**: 'Inter', sans-serif
+- **Monospace**: 'JetBrains Mono', monospace (for code, if needed)
+
+**Font Loading:**
+```html
+<!-- Google Fonts or self-hosted -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+```
+
+**Rationale:** Inter is a highly legible sans-serif designed specifically for computer screens, with excellent readability at small sizes and a professional, modern appearance. Widely used in modern SaaS products (Framer, Linear, Notion).
 
 ### Type Scale
 
@@ -135,7 +147,7 @@ caption: 0.75rem (12px), font-weight: 400, line-height: 1.66
 
 1. **Headings**: Use semantic HTML (h1-h6) for accessibility
 2. **Body text**: Use body1 for primary content, body2 for secondary
-3. **Button text**: Always uppercase, medium weight (Material UI standard)
+3. **Button text**: Sentence case (not uppercase), medium weight - Framer style
 4. **Line length**: Max 75 characters per line for readability
 5. **Hierarchy**: Maintain clear visual hierarchy (don't skip heading levels)
 
@@ -155,6 +167,19 @@ xl: 32px  (4 * base)
 xxl: 48px (6 * base)
 ```
 
+### Border Radius System (Framer-Inspired)
+
+**Hierarchy:**
+```
+Main screen containers: 35px   (large, smooth curves)
+Primary information cards: 22px (medium-large, soft corners)
+Secondary cards: 14px          (medium, subtle rounding)
+Icons: 8-12px                  (small, gentle rounding)
+Buttons: pill-shaped           (fully rounded, 9999px or 50%)
+```
+
+**Rationale:** Larger border radii create a modern, soft, approachable aesthetic (Framer style). The hierarchy helps establish visual importance: larger containers have more pronounced rounding, creating depth and focus.
+
 ### Application
 - **Component padding**: md (16px) for most cards, lg (24px) for spacious layouts
 - **Vertical spacing**: lg (24px) between sections, md (16px) between related items
@@ -173,27 +198,32 @@ xxl: 48px (6 * base)
 - **Style**:
   - Background: #CDF348 (green)
   - Text: #212121 (dark gray)
-  - Text transform: Uppercase
-  - Border radius: 4px
-  - Padding: 8px 16px
+  - Text transform: None (sentence case, not uppercase)
+  - Border radius: 9999px (pill-shaped, fully rounded)
+  - Padding: 10px 24px (vertical, horizontal)
+  - Font weight: 500 (medium)
 - **States**:
-  - Hover: Background darkens to #B8E01F
+  - Hover: Background darkens to #B8E01F, subtle scale up (transform: scale(1.02))
   - Active: Slight scale down (transform: scale(0.98))
   - Disabled: Gray background, light gray text, cursor not-allowed
   - Loading: Spinner inside button, text "Loading..."
 - **Examples**: "Start Learning", "Submit Answer", "Begin Diagnostic"
+- **Framer Influence**: Smooth, organic pill shape with subtle hover animations
 
 #### Secondary Button
 - **Usage**: Alternative actions, less emphasis
 - **Component**: `<Button variant="outlined" color="primary">`
 - **Style**:
   - Background: Transparent
-  - Border: 2px solid #CDF348
+  - Border: 1.5px solid #CDF348
   - Text: #CDF348 (light mode), #CDF348 (dark mode)
-  - Text transform: Uppercase
+  - Text transform: None (sentence case)
+  - Border radius: 9999px (pill-shaped)
+  - Padding: 10px 24px
+  - Font weight: 500
 - **States**:
-  - Hover: Background #CDF348 with 10% opacity, text remains green
-  - Active: Border darker, slight scale
+  - Hover: Background #CDF348 with 10% opacity, subtle scale up (1.02)
+  - Active: Border darker, slight scale down (0.98)
   - Disabled: Gray border, gray text
 - **Examples**: "Cancel", "Return to Dashboard", "Take Diagnostic Test"
 
@@ -204,9 +234,12 @@ xxl: 48px (6 * base)
   - Background: Transparent
   - Text: #CDF348
   - No border
+  - Border radius: 9999px (pill-shaped for consistency)
+  - Padding: 8px 16px
+  - Font weight: 500
 - **States**:
-  - Hover: Background green with 5% opacity
-  - Active: Slight scale
+  - Hover: Background green with 5% opacity, subtle scale up (1.02)
+  - Active: Slight scale down (0.98)
   - Disabled: Gray text
 - **Examples**: "Skip", "Learn More", "View Details"
 
@@ -216,14 +249,19 @@ xxl: 48px (6 * base)
 - **Style**:
   - Background: #D32F2F (error red)
   - Text: #FFFFFF
-- **States**: Same as primary
+  - Border radius: 9999px (pill-shaped)
+  - Padding: 10px 24px
+  - Font weight: 500
+- **States**: Same as primary (hover darken, scale animations)
 - **Examples**: "Delete Account", "End Exam Early"
 - **Pattern**: Always require confirmation modal
 
 ### Button Sizing
-- **Small**: Height 32px, padding 6px 12px, font-size 13px
-- **Medium** (default): Height 40px, padding 8px 16px, font-size 14px
-- **Large**: Height 48px, padding 10px 20px, font-size 15px
+- **Small**: Height 34px, padding 6px 16px, font-size 13px, pill-shaped
+- **Medium** (default): Height 42px, padding 10px 24px, font-size 14px, pill-shaped
+- **Large**: Height 50px, padding 12px 32px, font-size 15px, pill-shaped
+
+**Note**: All buttons use pill-shaped border radius (9999px or 50%) for modern, Framer-inspired aesthetic
 
 ### Button Icons
 - **Icon position**: Left of text (leading icon) or right (trailing icon)
@@ -241,21 +279,23 @@ xxl: 48px (6 * base)
 - **Component**: Alert or Snackbar
 - **Usage**: After successful action (answer submission, save)
 - **Style**:
-  - Icon: ✓ (checkmark)
+  - Icon: Checkmark vector icon (Material Icons: check_circle or CheckCircleIcon)
   - Background: Light green (#E8F5E9 light mode, #1B5E20 dark mode)
   - Text: #2E7D32 (success green, light mode), #FFFFFF (dark mode)
   - Border: None or subtle green border
+  - Border radius: 14px (secondary card radius)
 - **Duration**: 3-4 seconds auto-dismiss
-- **Example**: "✓ Answer submitted successfully"
+- **Example**: "[Checkmark Icon] Answer submitted successfully"
 
 #### Success Modal (Major)
 - **Usage**: After completing significant milestone (diagnostic, session complete)
 - **Component**: Dialog (modal)
 - **Style**:
-  - Icon: Large checkmark or celebration emoji 🎉
+  - Icon: Large checkmark vector icon (48px, green) or celebration icon (party popper, stars burst)
   - Heading: "Session Complete!" or "Congratulations!"
   - Body: Summary of achievement
-  - CTA: Primary button to continue
+  - CTA: Primary button to continue (pill-shaped)
+  - Border radius: 22px (primary card radius)
 - **Example**: Session complete summary screen
 
 ### Error Feedback
@@ -265,9 +305,9 @@ xxl: 48px (6 * base)
 - **Usage**: Below form fields with validation issues
 - **Style**:
   - Text: #D32F2F (error red)
-  - Icon: ⚠ or ✗
+  - Icon: Warning vector icon (Material Icons: warning or error_outline)
   - Font size: 12px
-- **Example**: "⚠ Password must be at least 8 characters"
+- **Example**: "[Warning Icon] Password must be at least 8 characters"
 
 #### Error Alert (System)
 - **Component**: Alert severity="error"
@@ -275,10 +315,11 @@ xxl: 48px (6 * base)
 - **Style**:
   - Background: Light red (#FFEBEE light mode, #B71C1C dark mode)
   - Text: #C62828 (dark red, light mode), #FFFFFF (dark mode)
-  - Icon: ✗ or ⚠
+  - Icon: Error vector icon (Material Icons: error or cancel)
+  - Border radius: 14px (secondary card radius)
 - **Duration**: Persistent (requires user dismiss)
-- **Action**: Retry button if applicable
-- **Example**: "✗ Failed to load question. [Retry]"
+- **Action**: Retry button if applicable (pill-shaped)
+- **Example**: "[Error Icon] Failed to load question. [Retry]"
 
 ### Warning Feedback
 - **Component**: Alert severity="warning"
@@ -286,8 +327,9 @@ xxl: 48px (6 * base)
 - **Style**:
   - Background: Light orange (#FFF3E0 light mode, #E65100 dark mode)
   - Text: #E65100 (warning orange, light mode), #FFFFFF (dark mode)
-  - Icon: ⚠
-- **Example**: "⚠ Mock exam will take 3.5 hours. Ensure you have time."
+  - Icon: Warning vector icon (Material Icons: warning_amber)
+  - Border radius: 14px
+- **Example**: "[Warning Icon] Mock exam will take 3.5 hours. Ensure you have time."
 
 ### Info Feedback
 - **Component**: Alert severity="info"
@@ -295,8 +337,9 @@ xxl: 48px (6 * base)
 - **Style**:
   - Background: Light blue (#E3F2FD light mode, #01579B dark mode)
   - Text: #0277BD (info blue, light mode), #FFFFFF (dark mode)
-  - Icon: ℹ
-- **Example**: "ℹ Reviews scheduled based on spaced repetition for optimal retention"
+  - Icon: Info vector icon (Material Icons: info or info_outline)
+  - Border radius: 14px
+- **Example**: "[Info Icon] Reviews scheduled based on spaced repetition for optimal retention"
 
 ### Loading States
 
@@ -324,7 +367,7 @@ xxl: 48px (6 * base)
   - Bar color: #CDF348
   - Background: Light gray (#E0E0E0 light mode, #404040 dark mode)
   - Height: 8px
-  - Border radius: 4px
+  - Border radius: 9999px (pill-shaped, fully rounded)
 - **Example**: Quiz progress (Question 5 of 20 = 25% progress)
 
 ---
@@ -338,9 +381,10 @@ xxl: 48px (6 * base)
 - **Style**:
   - Label: Floating label (Material UI standard)
   - Border: 1px solid #E0E0E0 (light mode), #404040 (dark mode)
-  - Border radius: 4px
+  - Border radius: 12px (smooth, modern corners)
   - Padding: 12px 16px
   - Font size: 16px
+  - Font family: Inter
 - **States**:
   - Focus: Border #CDF348 (green), 2px width
   - Error: Border #D32F2F (red), error text below
@@ -403,9 +447,11 @@ xxl: 48px (6 * base)
 
 ### Modal Structure
 
+**Border Radius**: 22px (primary card radius - modals are primary information surfaces)
+
 #### Header
-- **Title**: h5 or h6, bold
-- **Close button**: X icon, top-right corner
+- **Title**: h5 or h6, bold, Inter font
+- **Close button**: X icon (Material Icons: close), top-right corner
 - **Divider**: Subtle line below header (optional)
 
 #### Body
@@ -414,7 +460,7 @@ xxl: 48px (6 * base)
 - **Scrollable**: If content exceeds viewport height
 
 #### Footer
-- **Actions**: Buttons aligned right
+- **Actions**: Buttons aligned right (pill-shaped)
 - **Order**: Cancel (secondary) on left, Confirm (primary) on right
 - **Padding**: 16px all sides
 - **Divider**: Subtle line above footer (optional)
@@ -555,8 +601,8 @@ xxl: 48px (6 * base)
 #### Structure
 - **Component**: Card (Material UI)
 - **Padding**: 24px
-- **Border radius**: 8px
-- **Shadow**: elevation={2} (subtle)
+- **Border radius**: 22px (primary information card)
+- **Shadow**: elevation={2} (subtle, Framer-style soft shadow)
 - **Background**: White (light mode), #2A2A2A (dark mode)
 
 #### Elements
@@ -574,15 +620,16 @@ xxl: 48px (6 * base)
 3. **Option Button**:
    - **Default state**:
      - Background: White (light mode), #2A2A2A (dark mode)
-     - Border: 2px solid #E0E0E0 (light mode), #404040 (dark mode)
-     - Padding: 16px
-     - Border radius: 8px
-     - Text: Left-aligned
+     - Border: 1.5px solid #E0E0E0 (light mode), #404040 (dark mode)
+     - Padding: 16px 20px
+     - Border radius: 14px (secondary card radius)
+     - Text: Left-aligned, Inter font
    - **Selected state**:
      - Border: 2px solid #CDF348 (green)
      - Background: #CDF348 with 10% opacity
    - **Hover state**:
-     - Border: 2px solid #B0B0B0
+     - Border: 1.5px solid #B0B0B0
+     - Subtle scale up (transform: scale(1.01))
      - Cursor: pointer
 
 ### Progress Bar (Quiz)
@@ -592,6 +639,7 @@ xxl: 48px (6 * base)
 - **Height**: 6px
 - **Background**: Light gray (#E0E0E0 light mode, #404040 dark mode)
 - **Fill**: Green (#CDF348)
+- **Border radius**: 9999px (pill-shaped)
 - **Animation**: Smooth transition (300ms) on progress change
 
 #### Variants
@@ -612,12 +660,12 @@ xxl: 48px (6 * base)
 - **Component**: Alert (MUI) or custom Card
 - **Position**: Below question card or as overlay
 - **Padding**: 16px
-- **Border radius**: 8px
+- **Border radius**: 14px (secondary card radius)
 
 #### Content
 1. **Icon** (left side):
-   - Correct: ✓ (green circle)
-   - Incorrect: ✗ (red circle)
+   - Correct: Checkmark vector icon in green circle (Material Icons: check_circle)
+   - Incorrect: X vector icon in red circle (Material Icons: cancel)
    - Size: 24px
 
 2. **Result text**:
@@ -632,21 +680,21 @@ xxl: 48px (6 * base)
 
 4. **CTA Button**:
    - "Continue" or "Next Question"
-   - Primary button (green)
+   - Primary button (green, pill-shaped)
    - Full width or right-aligned
 
 #### Example (Correct)
 ```
-[✓] Correct!
+[Checkmark Icon] Correct!
 Facilitated workshops are most effective for gathering diverse stakeholder input and achieving consensus on requirements.
-[Continue Button]
+[Continue Button - Pill-Shaped]
 ```
 
 #### Example (Incorrect)
 ```
-[✗] Incorrect. The answer is B.
+[X Icon] Incorrect. The answer is B.
 While interviews are valuable, facilitated workshops bring stakeholders together to collaboratively define requirements in real-time.
-[Continue Button]
+[Continue Button - Pill-Shaped]
 ```
 
 ---
@@ -666,8 +714,8 @@ While interviews are valuable, facilitated workshops bring stakeholders together
 #### Bar Styling
 - **Background**: Light gray (#E0E0E0 light mode, #404040 dark mode)
 - **Fill**: Green (#CDF348)
-- **Border radius**: 12px (rounded ends)
-- **Animation**: Progress bar fills from 0 to score% over 500ms
+- **Border radius**: 9999px (pill-shaped, fully rounded)
+- **Animation**: Progress bar fills from 0 to score% over 500ms (smooth, Framer-style easing)
 
 #### Interaction
 - **Hover**: Slightly darker fill color
@@ -712,7 +760,8 @@ Solution Evaluation                      [█████████░░░�
 - **Component**: Card (Material UI)
 - **Dimensions**: 300px width, 200px height (desktop), full-width (mobile)
 - **Padding**: 20px
-- **Shadow**: elevation={3}
+- **Shadow**: elevation={3} (soft, Framer-style shadow)
+- **Border radius**: 22px (primary information card)
 
 #### Elements
 1. **KA Name** (heading):
@@ -741,19 +790,19 @@ Solution Evaluation                      [█████████░░░�
 
 #### Compact Version (Dashboard)
 - **Layout**: Inline badge
-- **Icon**: 🔥 (fire emoji)
+- **Icon**: Flame vector icon (Material Icons: local_fire_department or custom flame SVG) in orange
 - **Text**: "12 day streak"
 - **Background**: Light orange gradient (#FFF3E0 to #FFE0B2)
 - **Border**: 2px solid #FF9800 (orange)
 - **Padding**: 8px 16px
-- **Border radius**: 20px (pill shape)
+- **Border radius**: 9999px (pill-shaped)
 
 #### Prominent Version (Session Complete)
 - **Layout**: Large centered element
-- **Icon**: Large 🔥 (48px)
-- **Text**: "7 day streak!" (24px, bold)
+- **Icon**: Large flame vector icon (48px) in gradient (orange to gold)
+- **Text**: "7 day streak!" (24px, bold, Inter font)
 - **Background**: Animated gradient (gold to orange)
-- **Celebration**: Confetti animation (optional)
+- **Celebration**: Confetti particle animation (optional, Framer-style smooth motion)
 
 ---
 
@@ -809,17 +858,17 @@ See **Feedback Display** section above (Section 9).
 #### Structure
 - **Layout**: Centered vertically and horizontally in content area
 - **Elements**:
-  1. **Illustration**: Simple icon or graphic (200px)
-  2. **Heading**: "Get Started with [Feature]" (h4)
+  1. **Illustration**: Simple vector icon or graphic (200px, subtle color, rounded icon radius 12px)
+  2. **Heading**: "Get Started with [Feature]" (h4, Inter font)
   3. **Description**: 1-2 sentences explaining what will appear here
-  4. **CTA**: Primary button to initiate action
+  4. **CTA**: Primary button to initiate action (pill-shaped)
 
 #### Example - Dashboard (Before Diagnostic)
 ```
-[Illustration: Chart icon]
+[Illustration: Chart vector icon, rounded 12px, subtle green]
 "Complete Your Diagnostic Test"
 "We'll assess your current CBAP knowledge across all 6 areas to personalize your learning journey."
-[Start Diagnostic Button]
+[Start Diagnostic Button - Pill-Shaped]
 ```
 
 ### No Results (Searched/Filtered)
@@ -827,27 +876,27 @@ See **Feedback Display** section above (Section 9).
 #### Structure
 - **Layout**: Centered in search results area
 - **Elements**:
-  1. **Icon**: Magnifying glass with X (48px)
-  2. **Heading**: "No results found" (h5)
+  1. **Icon**: Magnifying glass vector icon with X (Material Icons: search_off) - 48px
+  2. **Heading**: "No results found" (h5, Inter font)
   3. **Description**: "Try adjusting your filters or search terms"
-  4. **CTA**: "Clear Filters" button (secondary)
+  4. **CTA**: "Clear Filters" button (secondary, pill-shaped)
 
 ### Cleared Content
 
 #### Structure
 - **Layout**: Centered in previously filled area
 - **Elements**:
-  1. **Icon**: Checkmark or empty box (48px)
-  2. **Heading**: "All done!" or "Nothing here" (h5)
+  1. **Icon**: Checkmark vector icon or empty box icon (Material Icons: check_circle or inbox) - 48px
+  2. **Heading**: "All done!" or "Nothing here" (h5, Inter font)
   3. **Description**: Context-specific message
-  4. **CTA**: Action to add new content
+  4. **CTA**: Action to add new content (pill-shaped button)
 
 #### Example - No Reviews Due
 ```
-[Icon: ✓]
+[Icon: Checkmark Vector Icon]
 "All caught up!"
 "No reviews due today. Come back tomorrow for your next spaced repetition session."
-[Continue Learning Button]
+[Continue Learning Button - Pill-Shaped]
 ```
 
 ---
@@ -893,33 +942,33 @@ See **Feedback Display** section above (Section 9).
 - **Mobile**: Bottom center
 
 #### Structure
-- **Background**: Dark gray (#2A2A2A, semi-transparent)
-- **Text**: White (#FFFFFF)
+- **Background**: Dark gray (#2A2A2A, semi-transparent backdrop blur for Framer effect)
+- **Text**: White (#FFFFFF), Inter font
 - **Padding**: 12px 16px
-- **Border radius**: 4px
+- **Border radius**: 14px (secondary card radius)
 - **Max width**: 400px
-- **Shadow**: elevation={6}
+- **Shadow**: elevation={6} (soft, diffused)
 
 #### Variants
 
 **Success Toast**
-- Icon: ✓ (green)
+- Icon: Checkmark vector icon (green, Material Icons: check_circle)
 - Message: "Changes saved successfully"
 - Duration: 3 seconds auto-dismiss
 
 **Error Toast**
-- Icon: ✗ (red)
+- Icon: X vector icon (red, Material Icons: cancel)
 - Message: "Failed to save. [Retry]"
 - Duration: Persistent (requires dismiss or action)
 
 **Info Toast**
-- Icon: ℹ (blue)
+- Icon: Info vector icon (blue, Material Icons: info)
 - Message: "New review session available"
 - Duration: 4 seconds auto-dismiss
 
 #### Action Button
 - Optional: "Undo", "Retry", "View"
-- Style: Text button (uppercase, white text)
+- Style: Text button (sentence case, white text, pill-shaped)
 - Position: Right side of message
 
 #### Stacking
@@ -947,14 +996,15 @@ See **Feedback Display** section above (Section 9).
 
 #### Notification Item
 - **Layout**: Horizontal
-  - Icon (left): Type-specific (checkmark, alert, info)
+  - Icon (left): Type-specific vector icons (checkmark, alert, info - Material Icons)
   - Content (center):
-    - Title: Bold, 14px
+    - Title: Bold, 14px, Inter font
     - Message: Normal, 13px, gray
     - Time: Small, 12px, light gray ("2 hours ago")
-  - Dot (right): Blue dot if unread
+  - Dot (right): Blue dot if unread (8px, pill-rounded)
 - **Interaction**: Click to navigate to related content
-- **Background**: Hover state = light gray
+- **Background**: Hover state = light gray, subtle scale (1.01)
+- **Border radius**: 10px (subtle rounding for list items)
 
 ---
 
@@ -967,14 +1017,15 @@ See **Feedback Display** section above (Section 9).
 
 #### Modal Structure
 - **Size**: Small (400px max width)
-- **Title**: "Are you sure?" (h5, red text)
+- **Border radius**: 22px (primary card)
+- **Title**: "Are you sure?" (h5, red text, Inter font)
 - **Body**:
   - Clear explanation of action
   - Consequences (e.g., "This cannot be undone")
-  - Optional: "Type DELETE to confirm" input field (extra safety)
+  - Optional: "Type DELETE to confirm" input field (extra safety, border radius 12px)
 - **Actions**:
-  - "Cancel" (secondary button, left)
-  - "Delete" / "End" / "Discard" (destructive button, right)
+  - "Cancel" (secondary button, pill-shaped, left)
+  - "Delete" / "End" / "Discard" (destructive button, pill-shaped, right)
 
 #### Example
 ```
@@ -990,9 +1041,10 @@ Actions: [Cancel] [End Exam]
 
 #### Modal Structure
 - **Size**: Small
-- **Title**: "Unsaved Changes" (h5, warning orange text)
+- **Border radius**: 22px (primary card)
+- **Title**: "Unsaved Changes" (h5, warning orange text, Inter font)
 - **Body**: "You have unsaved changes. Do you want to save before leaving?"
-- **Actions**:
+- **Actions** (all pill-shaped):
   - "Discard" (secondary, left)
   - "Cancel" (secondary, center)
   - "Save" (primary green, right)
@@ -1045,17 +1097,20 @@ xl: 1920px+ (Large desktops)
 ### Component Responsive Behavior
 
 **Parallel KA Progress**:
-- Desktop: Horizontal bars
+- Desktop: Horizontal bars (pill-shaped, 9999px border radius)
 - Mobile: Donut chart + list view toggle
 
 **Quiz Options**:
-- Desktop: 2-column grid (if short options)
-- Mobile: Single column, full width
+- Desktop: 2-column grid (if short options, 14px border radius)
+- Mobile: Single column, full width (14px border radius)
 
 **Analytics Dashboard**:
-- Desktop: 2x3 grid of KA cards
+- Desktop: 2x3 grid of KA cards (22px border radius)
 - Tablet: 2-column grid
 - Mobile: Single column, cards stacked
+
+**Main Containers**:
+- All screen: 35px border radius (smooth, prominent rounding)
 
 ---
 
@@ -1119,12 +1174,14 @@ xl: 1920px+ (Large desktops)
 - **Duration**: 100ms
 - **Type**: Scale down (transform: scale(0.98))
 - **Trigger**: On active state (mouse down or touch)
+- **Easing**: cubic-bezier(0.4, 0, 0.2, 1) - Framer-style smooth easing
 
 #### Modal Open/Close
 - **Duration**: 250ms
 - **Type**:
-  - Open: Fade in + scale up (0.9 to 1)
-  - Close: Fade out + scale down (1 to 0.9)
+  - Open: Fade in + scale up (0.95 to 1) + subtle slide up (10px)
+  - Close: Fade out + scale down (1 to 0.95)
+- **Easing**: cubic-bezier(0.4, 0, 0.2, 1) - Framer-style smooth easing
 
 #### Progress Bar Fill
 - **Duration**: 500ms
@@ -1172,7 +1229,94 @@ xl: 1920px+ (Large desktops)
 
 ---
 
-## 20. Component Priority Matrix
+## 20. Framer-Inspired Design Elements
+
+### Visual Design Philosophy
+
+LearnR's visual design draws inspiration from **Framer website templates**, known for their:
+- **Smooth, organic shapes** (large border radii, pill-shaped buttons)
+- **Subtle, sophisticated animations** (scale, fade, slide with easing curves)
+- **Clean, modern typography** (Inter font family)
+- **Generous white space** (breathing room, not cluttered)
+- **Soft shadows** (elevation without harsh edges)
+- **Minimal color palette** (3-color system: green accent, background, text)
+
+### Key Framer Design Patterns Applied
+
+**1. Border Radius Hierarchy**
+- Creates visual depth and importance through progressive rounding
+- Larger containers (35px) = primary focus, smaller elements (8-12px) = subtle polish
+
+**2. Pill-Shaped Buttons**
+- Fully rounded (9999px) for organic, friendly appearance
+- Encourages interaction through inviting shape
+- Maintains consistency across all button variants
+
+**3. Smooth Micro-Interactions**
+- Hover: Subtle scale up (1.02) instead of static color change
+- Press: Scale down (0.98) for tactile feedback
+- Easing curves: cubic-bezier(0.4, 0, 0.2, 1) for natural motion
+
+**4. Inter Typography**
+- Highly legible on screens
+- Modern, professional aesthetic
+- Excellent readability at all sizes (12px captions to 40px headings)
+
+**5. Soft Elevation**
+- Shadows are diffused, not harsh
+- Create depth without heavy visual weight
+- Support light and dark modes equally well
+
+**6. Vector Icons Only**
+- No emojis (unpredictable rendering across platforms)
+- Material Icons provide consistent, professional appearance
+- Scalable and accessible
+
+### Implementation Notes
+
+**Material UI Theming for Framer Style:**
+```javascript
+const theme = createTheme({
+  typography: {
+    fontFamily: "'Inter', sans-serif",
+    button: {
+      textTransform: 'none', // Sentence case, not uppercase
+      fontWeight: 500,
+    }
+  },
+  shape: {
+    borderRadius: 14, // Default for most components (secondary cards)
+  },
+  components: {
+    MuiButton: {
+      styleOverrides: {
+        root: {
+          borderRadius: 9999, // Pill-shaped
+          padding: '10px 24px',
+        }
+      }
+    },
+    MuiCard: {
+      styleOverrides: {
+        root: {
+          borderRadius: 22, // Primary information cards
+        }
+      }
+    },
+    MuiPaper: {
+      styleOverrides: {
+        rounded: {
+          borderRadius: 22, // Modals, dialogs
+        }
+      }
+    }
+  }
+});
+```
+
+---
+
+## 21. Component Priority Matrix
 
 ### Phase 1: MVP (Critical Path)
 
