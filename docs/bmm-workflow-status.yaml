@@ -53,11 +53,12 @@ workflow_status:
     note: "Optional: Create epic breakdown early (basic structure only)"
 
   create-design:
-    status: "conditional"
+    status: "docs/ux-design-specification.md"
     condition: "if_has_ui"
     agent: "ux-designer"
     command: "/bmad:bmm:workflows:create-design"
-    note: "Determined after PRD - user/agent decides if needed"
+    output: "UX Design Specification with color themes, design directions, user journeys, and patterns"
+    completed: "2025-11-17"
 
   create-epics-and-stories-after-ux:
     status: "optional"
