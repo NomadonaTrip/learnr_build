@@ -68,11 +68,12 @@ workflow_status:
 
   # PHASE 2: Solutioning
   create-architecture:
-    status: "required"
+    status: "docs/architecture.md"
     agent: "architect"
     command: "/bmad:bmm:workflows:create-architecture"
-    output: "System architecture document"
+    output: "System architecture document with tech stack, patterns, and decision records"
     note: "Complete system design for greenfield projects"
+    completed: "2025-11-17"
 
   create-epics-and-stories-final:
     status: "required"
