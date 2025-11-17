@@ -1,0 +1,1139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LearnR - Design Direction Mockups</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: #f5f5f5;
+            padding: 20px;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .header h1 {
+            font-size: 28px;
+            margin-bottom: 10px;
+            color: #333;
+        }
+
+        .controls {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 20px;
+        }
+
+        .control-btn {
+            padding: 10px 20px;
+            border: 2px solid #CDF348;
+            background: white;
+            color: #333;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .control-btn:hover, .control-btn.active {
+            background: #CDF348;
+            color: #212121;
+        }
+
+        .mockup-container {
+            background: white;
+            border-radius: 16px;
+            padding: 20px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            margin-bottom: 30px;
+        }
+
+        .mockup-header {
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #f0f0f0;
+        }
+
+        .mockup-title {
+            font-size: 22px;
+            font-weight: 700;
+            margin-bottom: 8px;
+            color: #333;
+        }
+
+        .mockup-subtitle {
+            color: #666;
+            font-size: 14px;
+        }
+
+        .mockup-screen {
+            border: 2px solid #e0e0e0;
+            border-radius: 12px;
+            overflow: hidden;
+            background: white;
+            position: relative;
+        }
+
+        .mockup-screen.dark-mode {
+            background: #1E1E1E;
+            border-color: #333333;
+        }
+
+        .mode-toggle {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: rgba(255,255,255,0.9);
+            border: 1px solid #e0e0e0;
+            border-radius: 6px;
+            padding: 4px 8px;
+            font-size: 11px;
+            font-weight: 600;
+            cursor: pointer;
+            z-index: 10;
+        }
+
+        .mode-toggle.dark {
+            background: rgba(30,30,30,0.9);
+            color: white;
+            border-color: #333;
+        }
+
+        /* Direction 1: Learning Path (Duolingo-style) */
+        .learning-path {
+            padding: 40px 20px;
+            min-height: 600px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .path-container {
+            width: 100%;
+            max-width: 400px;
+            position: relative;
+        }
+
+        .path-line {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 4px;
+            height: 100%;
+            background: linear-gradient(to bottom, #CDF348 0%, #CDF348 60%, #e0e0e0 60%);
+        }
+
+        .dark-mode .path-line {
+            background: linear-gradient(to bottom, #CDF348 0%, #CDF348 60%, #333333 60%);
+        }
+
+        .path-node {
+            position: relative;
+            margin: 30px 0;
+            display: flex;
+            justify-content: center;
+        }
+
+        .node-circle {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 32px;
+            cursor: pointer;
+            transition: all 0.3s;
+            background: white;
+            border: 4px solid #CDF348;
+            box-shadow: 0 4px 12px rgba(205, 243, 72, 0.3);
+        }
+
+        .dark-mode .node-circle {
+            background: #1E1E1E;
+        }
+
+        .node-circle.completed {
+            background: #CDF348;
+        }
+
+        .node-circle.locked {
+            background: #f0f0f0;
+            border-color: #ccc;
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .dark-mode .node-circle.locked {
+            background: #333;
+            border-color: #444;
+        }
+
+        .node-label {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 14px;
+            font-weight: 600;
+            white-space: nowrap;
+        }
+
+        .node-label.left {
+            right: 100%;
+            margin-right: 20px;
+            text-align: right;
+        }
+
+        .node-label.right {
+            left: 100%;
+            margin-left: 20px;
+        }
+
+        .dark-mode .node-label {
+            color: #fff;
+        }
+
+        /* Direction 2: Card-Based Dashboard */
+        .card-dashboard {
+            padding: 30px;
+            background: #fafafa;
+        }
+
+        .dark-mode.card-dashboard {
+            background: #1E1E1E;
+        }
+
+        .dashboard-header {
+            margin-bottom: 30px;
+        }
+
+        .dashboard-title {
+            font-size: 32px;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .dark-mode .dashboard-title {
+            color: #fff;
+        }
+
+        .dashboard-subtitle {
+            color: #666;
+            font-size: 16px;
+        }
+
+        .dark-mode .dashboard-subtitle {
+            color: #999;
+        }
+
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+        }
+
+        .dashboard-card {
+            background: white;
+            border-radius: 12px;
+            padding: 24px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .dark-mode .dashboard-card {
+            background: #2A2A2A;
+        }
+
+        .dashboard-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 24px rgba(205, 243, 72, 0.2);
+            border: 2px solid #CDF348;
+        }
+
+        .card-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
+            background: #CDF348;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            margin-bottom: 16px;
+        }
+
+        .card-title {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .dark-mode .card-title {
+            color: #fff;
+        }
+
+        .card-subtitle {
+            font-size: 14px;
+            color: #666;
+            margin-bottom: 12px;
+        }
+
+        .dark-mode .card-subtitle {
+            color: #999;
+        }
+
+        .card-progress {
+            font-size: 12px;
+            color: #CDF348;
+            font-weight: 600;
+        }
+
+        /* Direction 3: Quiz Focus View */
+        .quiz-focus {
+            padding: 60px 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 600px;
+        }
+
+        .quiz-progress-bar {
+            width: 100%;
+            max-width: 600px;
+            height: 8px;
+            background: #e0e0e0;
+            border-radius: 4px;
+            margin-bottom: 40px;
+            overflow: hidden;
+        }
+
+        .dark-mode .quiz-progress-bar {
+            background: #333;
+        }
+
+        .quiz-progress-fill {
+            height: 100%;
+            background: #CDF348;
+            width: 60%;
+            transition: width 0.3s;
+        }
+
+        .quiz-card {
+            background: white;
+            border-radius: 16px;
+            padding: 40px;
+            max-width: 600px;
+            width: 100%;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+        }
+
+        .dark-mode .quiz-card {
+            background: #2A2A2A;
+        }
+
+        .quiz-question {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 30px;
+            line-height: 1.5;
+        }
+
+        .dark-mode .quiz-question {
+            color: #fff;
+        }
+
+        .quiz-options {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .quiz-option {
+            padding: 16px 20px;
+            border: 2px solid #e0e0e0;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.2s;
+            background: white;
+        }
+
+        .dark-mode .quiz-option {
+            background: #1E1E1E;
+            border-color: #333;
+            color: #fff;
+        }
+
+        .quiz-option:hover {
+            border-color: #CDF348;
+            background: rgba(205, 243, 72, 0.05);
+        }
+
+        .quiz-option.selected {
+            border-color: #CDF348;
+            background: #CDF348;
+            color: #212121;
+            font-weight: 600;
+        }
+
+        /* Direction 4: Side Navigation Layout */
+        .side-nav-layout {
+            display: flex;
+            min-height: 600px;
+        }
+
+        .sidebar {
+            width: 240px;
+            background: #fafafa;
+            border-right: 1px solid #e0e0e0;
+            padding: 24px 0;
+        }
+
+        .dark-mode .sidebar {
+            background: #2A2A2A;
+            border-color: #333;
+        }
+
+        .sidebar-item {
+            padding: 12px 24px;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-weight: 500;
+        }
+
+        .dark-mode .sidebar-item {
+            color: #999;
+        }
+
+        .sidebar-item:hover {
+            background: rgba(205, 243, 72, 0.1);
+            color: #212121;
+        }
+
+        .dark-mode .sidebar-item:hover {
+            color: #CDF348;
+        }
+
+        .sidebar-item.active {
+            background: #CDF348;
+            color: #212121;
+            font-weight: 600;
+        }
+
+        .main-content {
+            flex: 1;
+            padding: 30px;
+        }
+
+        .dark-mode .main-content {
+            background: #1E1E1E;
+        }
+
+        /* Direction 5: Minimal Single Column */
+        .minimal-single {
+            padding: 60px 20px;
+            max-width: 700px;
+            margin: 0 auto;
+            min-height: 600px;
+        }
+
+        .minimal-header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .minimal-title {
+            font-size: 36px;
+            font-weight: 700;
+            margin-bottom: 16px;
+        }
+
+        .dark-mode .minimal-title {
+            color: #fff;
+        }
+
+        .minimal-subtitle {
+            font-size: 18px;
+            color: #666;
+        }
+
+        .dark-mode .minimal-subtitle {
+            color: #999;
+        }
+
+        .ka-list {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .ka-item {
+            background: white;
+            border-radius: 12px;
+            padding: 24px;
+            border-left: 6px solid #CDF348;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .dark-mode .ka-item {
+            background: #2A2A2A;
+        }
+
+        .ka-item:hover {
+            transform: translateX(8px);
+            box-shadow: 0 4px 16px rgba(205, 243, 72, 0.2);
+        }
+
+        .ka-name {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 12px;
+        }
+
+        .dark-mode .ka-name {
+            color: #fff;
+        }
+
+        .ka-progress-row {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .ka-progress-bar-mini {
+            flex: 1;
+            height: 6px;
+            background: #e0e0e0;
+            border-radius: 3px;
+            overflow: hidden;
+        }
+
+        .dark-mode .ka-progress-bar-mini {
+            background: #333;
+        }
+
+        .ka-progress-fill-mini {
+            height: 100%;
+            background: #CDF348;
+        }
+
+        .ka-score {
+            font-weight: 600;
+            color: #CDF348;
+        }
+
+        /* Direction 6: Split Screen Learning */
+        .split-screen {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            min-height: 600px;
+        }
+
+        .split-left {
+            padding: 40px;
+            border-right: 1px solid #e0e0e0;
+        }
+
+        .dark-mode .split-left {
+            border-color: #333;
+        }
+
+        .split-right {
+            padding: 40px;
+            background: #fafafa;
+        }
+
+        .dark-mode .split-right {
+            background: #2A2A2A;
+        }
+
+        .split-title {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 20px;
+        }
+
+        .dark-mode .split-title {
+            color: #fff;
+        }
+
+        /* Direction 7: Bottom Navigation Mobile */
+        .mobile-bottom-nav {
+            display: flex;
+            flex-direction: column;
+            min-height: 600px;
+        }
+
+        .mobile-content {
+            flex: 1;
+            padding: 20px;
+        }
+
+        .bottom-nav-bar {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            border-top: 1px solid #e0e0e0;
+            background: white;
+        }
+
+        .dark-mode .bottom-nav-bar {
+            border-color: #333;
+            background: #2A2A2A;
+        }
+
+        .nav-item {
+            padding: 12px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .nav-item:hover, .nav-item.active {
+            color: #CDF348;
+        }
+
+        .nav-icon {
+            font-size: 24px;
+            margin-bottom: 4px;
+        }
+
+        .nav-label {
+            font-size: 11px;
+            font-weight: 600;
+        }
+
+        .dark-mode .nav-label {
+            color: #999;
+        }
+
+        .dark-mode .nav-item.active .nav-label {
+            color: #CDF348;
+        }
+
+        /* Direction 8: Data-Dense Dashboard */
+        .data-dense {
+            padding: 30px;
+            background: #fafafa;
+            min-height: 600px;
+        }
+
+        .dark-mode.data-dense {
+            background: #1E1E1E;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 16px;
+            margin-bottom: 30px;
+        }
+
+        .stat-card {
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .dark-mode .stat-card {
+            background: #2A2A2A;
+        }
+
+        .stat-value {
+            font-size: 32px;
+            font-weight: 700;
+            color: #CDF348;
+            margin-bottom: 4px;
+        }
+
+        .stat-label {
+            font-size: 12px;
+            color: #666;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .dark-mode .stat-label {
+            color: #999;
+        }
+
+        .btn-primary {
+            background: #CDF348;
+            color: #212121;
+            border: none;
+            padding: 12px 32px;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(205, 243, 72, 0.4);
+        }
+
+        .navigation-buttons {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            margin-top: 20px;
+        }
+
+        .nav-btn {
+            padding: 8px 16px;
+            background: #CDF348;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+        }
+
+        .nav-btn:hover {
+            opacity: 0.8;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        @media (max-width: 768px) {
+            .split-screen {
+                grid-template-columns: 1fr;
+            }
+            .split-left {
+                border-right: none;
+                border-bottom: 1px solid #e0e0e0;
+            }
+            .side-nav-layout {
+                flex-direction: column;
+            }
+            .sidebar {
+                width: 100%;
+                border-right: none;
+                border-bottom: 1px solid #e0e0e0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>🎨 LearnR Design Direction Mockups</h1>
+        <p>8 complete design approaches with Duolingo-inspired user flows</p>
+        <p style="font-size: 14px; color: #666; margin-top: 8px;">Color: #CDF348 Green • Design System: Material UI • Modes: Light & Dark</p>
+        <div class="controls">
+            <button class="control-btn active" onclick="showDirection(1)">1. Learning Path</button>
+            <button class="control-btn" onclick="showDirection(2)">2. Card Dashboard</button>
+            <button class="control-btn" onclick="showDirection(3)">3. Quiz Focus</button>
+            <button class="control-btn" onclick="showDirection(4)">4. Side Nav</button>
+            <button class="control-btn" onclick="showDirection(5)">5. Minimal</button>
+            <button class="control-btn" onclick="showDirection(6)">6. Split Screen</button>
+            <button class="control-btn" onclick="showDirection(7)">7. Mobile Nav</button>
+            <button class="control-btn" onclick="showDirection(8)">8. Data Dense</button>
+        </div>
+    </div>
+
+    <!-- Direction 1: Learning Path (Duolingo-style) -->
+    <div class="mockup-container" id="direction-1">
+        <div class="mockup-header">
+            <div class="mockup-title">Direction 1: Learning Path Journey</div>
+            <div class="mockup-subtitle">Duolingo-inspired path visualization with node-based progression. Users see their journey as a visual path they walk through.</div>
+        </div>
+        <div class="mockup-screen" id="screen-1">
+            <div class="mode-toggle" onclick="toggleMode(1)">☀️ Light Mode</div>
+            <div class="learning-path">
+                <div class="path-container">
+                    <div class="path-line"></div>
+
+                    <div class="path-node">
+                        <div class="node-circle completed">✓</div>
+                        <div class="node-label left">Initial Diagnostic</div>
+                    </div>
+
+                    <div class="path-node">
+                        <div class="node-circle completed">✓</div>
+                        <div class="node-label right">Business Analysis Basics</div>
+                    </div>
+
+                    <div class="path-node">
+                        <div class="node-circle" style="background: #CDF348; border-color: #CDF348;">
+                            <span>📚</span>
+                        </div>
+                        <div class="node-label left">Elicitation Techniques</div>
+                    </div>
+
+                    <div class="path-node">
+                        <div class="node-circle locked">🔒</div>
+                        <div class="node-label right">Requirements Analysis</div>
+                    </div>
+
+                    <div class="path-node">
+                        <div class="node-circle locked">🔒</div>
+                        <div class="node-label left">Solution Evaluation</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Direction 2: Card-Based Dashboard -->
+    <div class="mockup-container hidden" id="direction-2">
+        <div class="mockup-header">
+            <div class="mockup-title">Direction 2: Card-Based Dashboard</div>
+            <div class="mockup-subtitle">Clean card-based layout with clear visual hierarchy. Each card represents an action or knowledge area.</div>
+        </div>
+        <div class="mockup-screen card-dashboard" id="screen-2">
+            <div class="mode-toggle" onclick="toggleMode(2)">☀️ Light Mode</div>
+            <div class="dashboard-header">
+                <div class="dashboard-title">Welcome back, Developer</div>
+                <div class="dashboard-subtitle">3 reviews due • 12 new questions ready</div>
+            </div>
+            <div class="card-grid">
+                <div class="dashboard-card">
+                    <div class="card-icon">📊</div>
+                    <div class="card-title">Continue Learning</div>
+                    <div class="card-subtitle">Pick up where you left off</div>
+                    <div class="card-progress">75% complete today</div>
+                </div>
+                <div class="dashboard-card">
+                    <div class="card-icon">🔄</div>
+                    <div class="card-title">Review Session</div>
+                    <div class="card-subtitle">3 concepts need reinforcement</div>
+                    <div class="card-progress">Due now</div>
+                </div>
+                <div class="dashboard-card">
+                    <div class="card-icon">📈</div>
+                    <div class="card-title">Progress Report</div>
+                    <div class="card-subtitle">See your competency growth</div>
+                    <div class="card-progress">6 KAs tracked</div>
+                </div>
+                <div class="dashboard-card">
+                    <div class="card-icon">🎯</div>
+                    <div class="card-title">Exam Readiness</div>
+                    <div class="card-subtitle">Check if you're prepared</div>
+                    <div class="card-progress">21 days until exam</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Direction 3: Quiz Focus View -->
+    <div class="mockup-container hidden" id="direction-3">
+        <div class="mockup-header">
+            <div class="mockup-title">Direction 3: Quiz Focus Mode</div>
+            <div class="mockup-subtitle">Minimal distractions, single-question focus. Classic Duolingo pattern for deep concentration.</div>
+        </div>
+        <div class="mockup-screen" id="screen-3">
+            <div class="mode-toggle" onclick="toggleMode(3)">☀️ Light Mode</div>
+            <div class="quiz-focus">
+                <div class="quiz-progress-bar">
+                    <div class="quiz-progress-fill"></div>
+                </div>
+                <div class="quiz-card">
+                    <div class="quiz-question">
+                        Which technique is most effective for gathering requirements from large groups of stakeholders?
+                    </div>
+                    <div class="quiz-options">
+                        <div class="quiz-option">A. One-on-one interviews</div>
+                        <div class="quiz-option selected">B. Facilitated workshops</div>
+                        <div class="quiz-option">C. Document analysis</div>
+                        <div class="quiz-option">D. Observation</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Direction 4: Side Navigation Layout -->
+    <div class="mockup-container hidden" id="direction-4">
+        <div class="mockup-header">
+            <div class="mockup-title">Direction 4: Side Navigation Dashboard</div>
+            <div class="mockup-subtitle">Persistent sidebar navigation with main content area. Great for desktop-first experiences.</div>
+        </div>
+        <div class="mockup-screen side-nav-layout" id="screen-4">
+            <div class="mode-toggle" onclick="toggleMode(4)">☀️ Light Mode</div>
+            <div class="sidebar">
+                <div class="sidebar-item active">
+                    <span>🏠</span> Dashboard
+                </div>
+                <div class="sidebar-item">
+                    <span>📚</span> Learn
+                </div>
+                <div class="sidebar-item">
+                    <span>🔄</span> Review
+                </div>
+                <div class="sidebar-item">
+                    <span>📊</span> Progress
+                </div>
+                <div class="sidebar-item">
+                    <span>⚙️</span> Settings
+                </div>
+            </div>
+            <div class="main-content">
+                <div class="dashboard-header">
+                    <div class="dashboard-title">Dashboard</div>
+                    <div class="dashboard-subtitle">Your learning overview</div>
+                </div>
+                <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 30px;">
+                    <div class="stat-card">
+                        <div class="stat-value">75%</div>
+                        <div class="stat-label">Avg Competency</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value">42</div>
+                        <div class="stat-label">Questions Today</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value">12</div>
+                        <div class="stat-label">Day Streak</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Direction 5: Minimal Single Column -->
+    <div class="mockup-container hidden" id="direction-5">
+        <div class="mockup-header">
+            <div class="mockup-title">Direction 5: Minimal Single Column</div>
+            <div class="mockup-subtitle">Clean, focused single-column layout. Maximum breathing room, minimal distractions.</div>
+        </div>
+        <div class="mockup-screen minimal-single" id="screen-5">
+            <div class="mode-toggle" onclick="toggleMode(5)">☀️ Light Mode</div>
+            <div class="minimal-header">
+                <div class="minimal-title">Your Knowledge Areas</div>
+                <div class="minimal-subtitle">Focus on your weakest areas first</div>
+            </div>
+            <div class="ka-list">
+                <div class="ka-item">
+                    <div class="ka-name">Business Analysis Planning & Monitoring</div>
+                    <div class="ka-progress-row">
+                        <div class="ka-progress-bar-mini">
+                            <div class="ka-progress-fill-mini" style="width: 75%"></div>
+                        </div>
+                        <div class="ka-score">75%</div>
+                    </div>
+                </div>
+                <div class="ka-item">
+                    <div class="ka-name">Requirements Elicitation & Collaboration</div>
+                    <div class="ka-progress-row">
+                        <div class="ka-progress-bar-mini">
+                            <div class="ka-progress-fill-mini" style="width: 92%"></div>
+                        </div>
+                        <div class="ka-score">92%</div>
+                    </div>
+                </div>
+                <div class="ka-item">
+                    <div class="ka-name">Requirements Life Cycle Management</div>
+                    <div class="ka-progress-row">
+                        <div class="ka-progress-bar-mini">
+                            <div class="ka-progress-fill-mini" style="width: 68%"></div>
+                        </div>
+                        <div class="ka-score">68%</div>
+                    </div>
+                </div>
+            </div>
+            <div style="text-align: center; margin-top: 40px;">
+                <button class="btn-primary">Start Learning Session</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Direction 6: Split Screen Learning -->
+    <div class="mockup-container hidden" id="direction-6">
+        <div class="mockup-header">
+            <div class="mockup-title">Direction 6: Split Screen Learning</div>
+            <div class="mockup-subtitle">Question on left, reading content on right. Perfect for integrated learning experience.</div>
+        </div>
+        <div class="mockup-screen split-screen" id="screen-6">
+            <div class="mode-toggle" onclick="toggleMode(6)">☀️ Light Mode</div>
+            <div class="split-left">
+                <div class="split-title">Question</div>
+                <div class="quiz-question" style="margin-bottom: 20px;">
+                    Which technique is most effective for gathering requirements from large groups of stakeholders?
+                </div>
+                <div class="quiz-options">
+                    <div class="quiz-option">A. One-on-one interviews</div>
+                    <div class="quiz-option selected">B. Facilitated workshops</div>
+                    <div class="quiz-option">C. Document analysis</div>
+                    <div class="quiz-option">D. Observation</div>
+                </div>
+            </div>
+            <div class="split-right">
+                <div class="split-title">Reading Content</div>
+                <p style="line-height: 1.8; color: #666;">
+                    <strong style="color: #CDF348;">Facilitated Workshops</strong> are collaborative sessions where stakeholders work together to define requirements, resolve conflicts, and reach consensus.
+                    <br><br>
+                    They are particularly effective for large groups because they:
+                    <br>• Enable real-time collaboration and discussion
+                    <br>• Allow multiple perspectives to be heard simultaneously
+                    <br>• Build consensus more efficiently than individual interviews
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Direction 7: Bottom Navigation Mobile -->
+    <div class="mockup-container hidden" id="direction-7">
+        <div class="mockup-header">
+            <div class="mockup-title">Direction 7: Mobile Bottom Navigation</div>
+            <div class="mockup-subtitle">Mobile-first design with bottom tab bar. Thumb-friendly navigation for on-the-go learning.</div>
+        </div>
+        <div class="mockup-screen mobile-bottom-nav" id="screen-7">
+            <div class="mode-toggle" onclick="toggleMode(7)">☀️ Light Mode</div>
+            <div class="mobile-content">
+                <div class="dashboard-header">
+                    <div class="dashboard-title" style="font-size: 24px;">Today's Session</div>
+                    <div class="dashboard-subtitle">Let's keep your streak going!</div>
+                </div>
+                <div style="margin-top: 30px;">
+                    <div class="ka-item" style="margin-bottom: 20px;">
+                        <div class="ka-name">Continue Learning</div>
+                        <div class="ka-progress-row">
+                            <div class="ka-progress-bar-mini">
+                                <div class="ka-progress-fill-mini" style="width: 60%"></div>
+                            </div>
+                            <div class="ka-score">60%</div>
+                        </div>
+                    </div>
+                    <div style="text-align: center; padding: 40px 20px;">
+                        <button class="btn-primary" style="width: 100%;">Start Session</button>
+                    </div>
+                </div>
+            </div>
+            <div class="bottom-nav-bar">
+                <div class="nav-item active">
+                    <div class="nav-icon">🏠</div>
+                    <div class="nav-label">Home</div>
+                </div>
+                <div class="nav-item">
+                    <div class="nav-icon">📚</div>
+                    <div class="nav-label">Learn</div>
+                </div>
+                <div class="nav-item">
+                    <div class="nav-icon">📊</div>
+                    <div class="nav-label">Progress</div>
+                </div>
+                <div class="nav-item">
+                    <div class="nav-icon">👤</div>
+                    <div class="nav-label">Profile</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Direction 8: Data-Dense Dashboard -->
+    <div class="mockup-container hidden" id="direction-8">
+        <div class="mockup-header">
+            <div class="mockup-title">Direction 8: Data-Dense Dashboard</div>
+            <div class="mockup-subtitle">Information-rich layout for data-driven learners. All key metrics visible at a glance.</div>
+        </div>
+        <div class="mockup-screen data-dense" id="screen-8">
+            <div class="mode-toggle" onclick="toggleMode(8)">☀️ Light Mode</div>
+            <div class="dashboard-header">
+                <div class="dashboard-title">Your Analytics</div>
+                <div class="dashboard-subtitle">Comprehensive view of your learning progress</div>
+            </div>
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-value">75%</div>
+                    <div class="stat-label">Avg Competency</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value">12</div>
+                    <div class="stat-label">Day Streak</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value">342</div>
+                    <div class="stat-label">Total Questions</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value">21</div>
+                    <div class="stat-label">Days to Exam</div>
+                </div>
+            </div>
+            <div class="ka-list" style="margin-top: 20px;">
+                <div class="ka-item">
+                    <div class="ka-name">Business Analysis Planning & Monitoring</div>
+                    <div class="ka-progress-row">
+                        <div class="ka-progress-bar-mini">
+                            <div class="ka-progress-fill-mini" style="width: 75%"></div>
+                        </div>
+                        <div class="ka-score">75%</div>
+                    </div>
+                </div>
+                <div class="ka-item">
+                    <div class="ka-name">Requirements Elicitation & Collaboration</div>
+                    <div class="ka-progress-row">
+                        <div class="ka-progress-bar-mini">
+                            <div class="ka-progress-fill-mini" style="width: 92%"></div>
+                        </div>
+                        <div class="ka-score">92%</div>
+                    </div>
+                </div>
+                <div class="ka-item">
+                    <div class="ka-name">Requirements Life Cycle Management</div>
+                    <div class="ka-progress-row">
+                        <div class="ka-progress-bar-mini">
+                            <div class="ka-progress-fill-mini" style="width: 68%"></div>
+                        </div>
+                        <div class="ka-score">68%</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function showDirection(num) {
+            // Hide all directions
+            for (let i = 1; i <= 8; i++) {
+                document.getElementById(`direction-${i}`).classList.add('hidden');
+            }
+            // Show selected direction
+            document.getElementById(`direction-${num}`).classList.remove('hidden');
+
+            // Update button states
+            document.querySelectorAll('.control-btn').forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+        }
+
+        function toggleMode(num) {
+            const screen = document.getElementById(`screen-${num}`);
+            const toggle = screen.querySelector('.mode-toggle');
+
+            if (screen.classList.contains('dark-mode')) {
+                screen.classList.remove('dark-mode');
+                toggle.classList.remove('dark');
+                toggle.textContent = '☀️ Light Mode';
+            } else {
+                screen.classList.add('dark-mode');
+                toggle.classList.add('dark');
+                toggle.textContent = '🌙 Dark Mode';
+            }
+        }
+    </script>
+</body>
+</html>
