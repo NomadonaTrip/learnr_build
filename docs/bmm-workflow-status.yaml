@@ -25,11 +25,12 @@ workflow_path: ".bmad/bmm/workflows/workflow-status/paths/method-greenfield.yaml
 workflow_status:
   # PHASE 0: Discovery (Optional)
   product-brief:
-    status: "optional"
+    status: "docs/product-brief.md"
     agent: "analyst"
     command: "/bmad:bmm:workflows:product-brief"
     output: "Strategic product planning document"
     note: "Recommended starting point for greenfield Method projects"
+    completed: "2025-11-17"
 
   # PHASE 1: Planning
   prd:
