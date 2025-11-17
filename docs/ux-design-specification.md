@@ -9,6 +9,10 @@ _Generated using BMad Method - Create UX Design Workflow v1.0_
 
 LearnR is an AI-powered adaptive learning platform for CBAP certification preparation, targeting working professionals aged 30-45 who need efficient, effective exam preparation despite limited study time. The UX design focuses on creating a **professional, focused learning environment** that balances Duolingo's proven engagement patterns with the seriousness and data-richness required for professional certification.
 
+**Platform includes two distinct user experiences:**
+- **Learner Experience**: Adaptive quizzes, progress tracking, spaced repetition, mock exams
+- **Admin Experience**: Course creation wizard, global analytics, revenue tracking, content moderation
+
 ### Core UX Philosophy
 
 **"Auto-Present, Never Interrupt, Always Inform"**
@@ -731,6 +735,61 @@ System determines "next experience" based on priority:
 - **Variants:** None (same structure for all 6 KAs)
 - **Behavior:** Click card or "View Details" → navigate to KA deep-dive
 - **Accessibility:** Card focusable, Enter to navigate
+
+**9. WizardProgressStepper** (Admin)
+- **Purpose:** Show progress through multi-step course creation wizard
+- **Content:**
+  - 5 steps displayed horizontally
+  - Step circles (completed: green checkmark, current: green number pulsing, upcoming: gray number)
+  - Connector lines (solid green for completed, dashed gray for upcoming)
+  - Step labels below circles
+- **States:**
+  - Completed steps clickable (navigate back)
+  - Current step highlighted
+  - Future steps disabled
+- **Variants:** 3-step, 5-step, custom step count
+- **Accessibility:** Keyboard navigation, ARIA current indicator
+
+**10. MetricKPICard** (Admin)
+- **Purpose:** Display key performance indicators on admin dashboards
+- **Content:**
+  - Label text (14px, gray)
+  - Large metric value (32px, bold)
+  - Trend indicator (icon + percentage, color-coded)
+  - Optional sparkline chart (60x30px)
+- **States:**
+  - Default: Static display
+  - Hover: Elevation increase
+  - Loading: Skeleton placeholder for value
+  - Click (optional): Expands to detailed modal
+- **Variants:** With/without sparkline, with/without trend
+- **Accessibility:** Screen reader announces "Metric name: value, trend: up/down X percent"
+
+**11. DataExportModal** (Admin)
+- **Purpose:** Export admin data in various formats
+- **Content:**
+  - Format selector (radio buttons: PDF, CSV, Excel, JSON)
+  - Date range picker
+  - Filter checkboxes (what to include)
+  - Preview (estimated size and record count)
+- **States:**
+  - Selection: User picks options
+  - Generating: Progress bar during export
+  - Complete: Auto-download trigger
+- **Behavior:** Generates file server-side, streams download
+- **Accessibility:** All options keyboard-accessible, progress announced
+
+**12. AdminNavigationSection** (Admin)
+- **Purpose:** Distinct admin section in side navigation
+- **Content:**
+  - Gray divider above admin section
+  - Admin menu items with "Admin" badge (small chip)
+  - Admin-only icons (school, analytics, rate_review)
+- **Visual indicator:** Orange accent on admin pages
+- **Access control:** Hidden from non-admin users (role-based)
+- **Accessibility:** Screen reader announces "Admin section" when entering
+
+**Admin User Journeys:** [admin-user-flows.md](./admin-user-flows.md)
 
 **Comprehensive component specifications:** [ux-patterns-components.md](./ux-patterns-components.md)
 

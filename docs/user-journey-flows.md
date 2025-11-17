@@ -1,6 +1,7 @@
 # LearnR User Journey Flows
 
 _Created on 2025-11-17_
+_Updated on 2025-11-17 (Admin flows added)_
 _Based on UX Design Direction Decisions and PRD Requirements_
 
 ---
@@ -13,8 +14,25 @@ This document defines the critical user journeys for LearnR, incorporating:
 - **Two-Stage Reading**: Brief explanations during quiz, comprehensive content after session
 - **Side Navigation**: Easy access to dashboard and key actions
 - **Material UI Components**: Professional, accessible design system
+- **Admin Capabilities**: Course creation, analytics, user management, revenue tracking
 
 ---
+
+## User Types
+
+### Learner Users
+- Individual professionals preparing for certification exams
+- Access: Learning dashboard, quiz sessions, progress analytics, mock exams
+- Journeys: Onboarding, learning sessions, reviews, analytics, mock exams
+
+### Admin Users
+- Platform administrators and course creators
+- Access: Course management, global analytics, user metrics, revenue dashboards, content moderation
+- Journeys: Course creation wizard, analytics review, course editing, evaluation monitoring, revenue tracking
+
+---
+
+## Part A: Learner User Journeys
 
 ## Journey 1: First-Time User Onboarding
 
@@ -637,3 +655,26 @@ Solution Evaluation                      █████████░░░░
 ---
 
 _This user journey documentation provides the complete flow specifications for development implementation, aligned with PRD requirements and approved UX design directions._
+
+---
+
+## Part B: Admin User Journeys
+
+**Note**: Admin-specific user journeys are documented in a separate file for clarity and scope management.
+
+**See**: [admin-user-flows.md](./admin-user-flows.md) for complete admin journey specifications including:
+- **Course Creation Wizard**: Multi-step wizard for creating courses with textbook upload, calibrated questions, and knowledge area configuration
+- **Global Analytics Dashboard**: Platform health monitoring (DAU, MAU, churn, concurrent users)
+- **Revenue Tracking**: Daily revenue, MRR, ARPU, subscription tier breakdowns
+- **Course Editing**: Edit existing courses, manage question banks, configure settings
+- **Evaluation & Feedback**: Review user feedback, content scores, flagged questions
+- **Admin Navigation**: Distinct admin section in side nav with role-based access
+
+**Admin Features Summary**:
+- Multi-step course creation wizard (5 steps: Basic info, KAs, textbook upload, calibrated questions, review)
+- Real-time platform metrics and analytics dashboards
+- Revenue tracking with daily/monthly breakdowns and subscription analytics
+- Content quality monitoring with user-generated ratings and feedback
+- Question bank management with flag review and bulk editing
+- Admin-only navigation structure with visual indicators
+
