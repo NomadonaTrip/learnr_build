@@ -34,10 +34,11 @@ workflow_status:
 
   # PHASE 1: Planning
   prd:
-    status: "required"
+    status: "docs/prd.md"
     agent: "pm"
     command: "/bmad:bmm:workflows:prd"
     output: "Product Requirements Document with FRs and NFRs"
+    completed: "2025-11-17"
 
   validate-prd:
     status: "optional"
