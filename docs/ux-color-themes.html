@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LearnR - Color Theme Explorer</title>
+    <title>Nigerian Film Intelligence Database - Color Theme Explorer</title>
     <style>
         * {
             margin: 0;
@@ -12,647 +12,848 @@
         }
 
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-            background: #f5f5f5;
-            padding: 20px;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+            background: #0a0a0a;
+            color: #ffffff;
+            padding: 2rem;
             line-height: 1.6;
         }
 
         .header {
             text-align: center;
-            margin-bottom: 40px;
-            background: white;
-            padding: 30px;
-            border-radius: 12px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            margin-bottom: 3rem;
+            padding: 2rem;
+            background: linear-gradient(135deg, #1a1a1a 0%, #0a0a0a 100%);
+            border-radius: 16px;
+            border: 1px solid #2a2a2a;
         }
 
         .header h1 {
-            font-size: 32px;
-            margin-bottom: 10px;
-            color: #333;
+            font-size: 2.5rem;
+            margin-bottom: 0.75rem;
+            background: linear-gradient(135deg, #f59e0b 0%, #ef4444 50%, #8b5cf6 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
 
-        .header p {
-            color: #666;
-            font-size: 16px;
+        .header .subtitle {
+            color: #a0a0a0;
+            font-size: 1.1rem;
+            margin-bottom: 1rem;
+        }
+
+        .header .hint {
+            color: #707070;
+            font-size: 0.9rem;
+            font-style: italic;
+        }
+
+        .instructions {
+            background: #1a1a1a;
+            border: 2px solid #2a2a2a;
+            border-radius: 12px;
+            padding: 2rem;
+            margin-bottom: 3rem;
+            max-width: 1000px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .instructions h3 {
+            margin-bottom: 1rem;
+            color: #f59e0b;
+            font-size: 1.3rem;
+        }
+
+        .instructions ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .instructions li {
+            padding: 0.75rem 0;
+            color: #d0d0d0;
+            border-bottom: 1px solid #2a2a2a;
+        }
+
+        .instructions li:last-child {
+            border-bottom: none;
+        }
+
+        .instructions li::before {
+            content: "🎬 ";
+            margin-right: 0.5rem;
         }
 
         .theme-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(600px, 1fr));
-            gap: 30px;
-            margin-bottom: 40px;
+            grid-template-columns: repeat(auto-fit, minmax(550px, 1fr));
+            gap: 2.5rem;
+            max-width: 1600px;
+            margin: 0 auto;
         }
 
         .theme-card {
-            background: white;
-            border-radius: 16px;
-            padding: 30px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-            transition: transform 0.3s, box-shadow 0.3s;
+            background: #1a1a1a;
+            border: 2px solid #2a2a2a;
+            border-radius: 20px;
+            padding: 2.5rem;
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .theme-card::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(135deg, var(--theme-primary), var(--theme-secondary));
+            border-radius: 20px;
+            opacity: 0;
+            transition: opacity 0.4s ease;
+            z-index: -1;
+        }
+
+        .theme-card:hover::before {
+            opacity: 0.3;
         }
 
         .theme-card:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+            transform: translateY(-8px);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+            border-color: var(--theme-primary);
         }
 
         .theme-header {
-            margin-bottom: 25px;
+            margin-bottom: 2rem;
+        }
+
+        .theme-number {
+            display: inline-block;
+            background: var(--theme-primary);
+            color: #000;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 40px;
+            font-weight: 700;
+            margin-bottom: 1rem;
         }
 
         .theme-name {
-            font-size: 24px;
+            font-size: 2rem;
             font-weight: 700;
-            margin-bottom: 8px;
+            margin-bottom: 0.75rem;
+            color: var(--theme-primary);
+        }
+
+        .theme-personality {
+            font-size: 1rem;
+            color: #909090;
+            font-style: italic;
+            margin-bottom: 1rem;
+            letter-spacing: 0.5px;
         }
 
         .theme-description {
-            color: #666;
-            font-size: 14px;
-            line-height: 1.5;
+            font-size: 0.95rem;
+            line-height: 1.7;
+            color: #c0c0c0;
+            margin-bottom: 1.25rem;
+        }
+
+        .theme-best-for {
+            background: rgba(var(--theme-primary-rgb), 0.1);
+            border-left: 4px solid var(--theme-primary);
+            padding: 1rem;
+            border-radius: 6px;
+            font-size: 0.9rem;
+            color: #d0d0d0;
+            line-height: 1.6;
+        }
+
+        .theme-best-for strong {
+            color: var(--theme-primary);
         }
 
         .color-palette {
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 12px;
-            margin-bottom: 25px;
+            grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));
+            gap: 1rem;
+            margin: 2rem 0;
+            padding: 1.5rem;
+            background: #0f0f0f;
+            border-radius: 12px;
         }
 
         .color-swatch {
-            border-radius: 8px;
-            padding: 16px;
             text-align: center;
-            color: white;
-            font-size: 11px;
-            font-weight: 600;
+        }
+
+        .color-box {
+            width: 100%;
+            height: 90px;
+            border-radius: 10px;
+            margin-bottom: 0.75rem;
+            border: 2px solid rgba(255, 255, 255, 0.05);
+            transition: transform 0.2s ease;
+            cursor: pointer;
+        }
+
+        .color-box:hover {
+            transform: scale(1.05);
+            border-color: rgba(255, 255, 255, 0.2);
+        }
+
+        .color-label {
+            font-size: 0.75rem;
+            color: #808080;
             text-transform: uppercase;
-            letter-spacing: 0.5px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            letter-spacing: 0.8px;
+            margin-bottom: 0.25rem;
+            font-weight: 600;
         }
 
         .color-hex {
-            font-size: 10px;
-            opacity: 0.9;
-            margin-top: 4px;
-            font-weight: 400;
-        }
-
-        .components-section {
-            margin-top: 25px;
-        }
-
-        .section-title {
-            font-size: 14px;
+            font-size: 0.85rem;
+            color: #ffffff;
+            font-family: 'Courier New', monospace;
             font-weight: 600;
+        }
+
+        .components-preview {
+            margin-top: 2.5rem;
+            padding-top: 2rem;
+            border-top: 2px solid #2a2a2a;
+        }
+
+        .components-title {
+            font-size: 1.2rem;
+            margin-bottom: 1.5rem;
+            color: var(--theme-primary);
+            font-weight: 700;
             text-transform: uppercase;
-            letter-spacing: 0.5px;
-            margin-bottom: 15px;
-            color: #666;
+            letter-spacing: 1px;
+        }
+
+        .component-section {
+            margin-bottom: 2rem;
+        }
+
+        .component-label {
+            font-size: 0.8rem;
+            color: #909090;
+            margin-bottom: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 600;
         }
 
         .button-group {
             display: flex;
-            gap: 12px;
+            gap: 1rem;
             flex-wrap: wrap;
-            margin-bottom: 20px;
         }
 
         .btn {
-            padding: 12px 24px;
-            border-radius: 8px;
-            font-size: 14px;
-            font-weight: 600;
+            padding: 0.875rem 1.75rem;
+            border-radius: 10px;
             border: none;
+            font-size: 0.95rem;
+            font-weight: 700;
             cursor: pointer;
-            transition: all 0.2s;
-            font-family: inherit;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
         }
 
         .btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
         }
 
-        .progress-demo {
-            margin-bottom: 20px;
+        .btn:active {
+            transform: translateY(0);
         }
 
-        .progress-bar {
-            background: #e0e0e0;
+        .poster-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 0.75rem;
+            margin-bottom: 1rem;
+        }
+
+        .poster-box {
+            aspect-ratio: 2/3;
             border-radius: 8px;
-            height: 12px;
-            overflow: hidden;
-            margin-bottom: 8px;
-        }
-
-        .progress-fill {
-            height: 100%;
-            border-radius: 8px;
-            transition: width 0.3s;
-        }
-
-        .progress-label {
-            font-size: 12px;
-            color: #666;
+            background: linear-gradient(135deg, var(--theme-secondary), var(--theme-accent));
             display: flex;
-            justify-content: space-between;
-            margin-bottom: 4px;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
         }
 
-        .card-demo {
-            border-radius: 12px;
-            padding: 20px;
-            margin-bottom: 15px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        .poster-box:hover {
+            transform: scale(1.05);
+            border-color: var(--theme-primary);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
+        }
+
+        .card {
+            border-radius: 14px;
+            padding: 1.75rem;
+            margin-bottom: 1.25rem;
+            border: 2px solid #2a2a2a;
+            background: #141414;
+            transition: all 0.3s ease;
+        }
+
+        .card:hover {
+            border-color: var(--theme-primary);
+            transform: translateX(4px);
+        }
+
+        .card-title {
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .card-text {
+            color: #b0b0b0;
+            font-size: 0.9rem;
+            line-height: 1.6;
+            margin-bottom: 1rem;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 0.4rem 0.9rem;
+            border-radius: 16px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            margin-right: 0.5rem;
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
         }
 
         .alert {
-            padding: 12px 16px;
-            border-radius: 8px;
-            font-size: 14px;
-            margin-bottom: 10px;
+            padding: 1.25rem;
+            border-radius: 10px;
+            margin-bottom: 1rem;
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 1rem;
+            border: 2px solid;
+            font-size: 0.9rem;
         }
 
-        .input-demo {
+        .alert-icon {
+            font-size: 1.5rem;
+        }
+
+        .form-input {
             width: 100%;
-            padding: 12px 16px;
+            padding: 1rem;
             border-radius: 8px;
-            font-size: 14px;
-            font-family: inherit;
-            margin-bottom: 12px;
+            border: 2px solid #2a2a2a;
+            font-size: 0.95rem;
+            background: #0f0f0f;
+            color: #ffffff;
+            transition: all 0.3s ease;
         }
 
-        .theme-personality {
-            margin-top: 20px;
-            padding: 16px;
-            background: #f8f9fa;
-            border-radius: 8px;
-            font-size: 13px;
+        .form-input:focus {
+            outline: none;
+            border-color: var(--theme-primary);
+            background: #1a1a1a;
         }
 
-        .personality-item {
-            margin-bottom: 8px;
+        .form-input::placeholder {
+            color: #606060;
         }
 
-        .personality-label {
-            font-weight: 600;
-            color: #333;
+        .footer-cta {
+            text-align: center;
+            margin-top: 4rem;
+            padding: 3rem 2rem;
+            background: linear-gradient(135deg, #1a1a1a 0%, #0f0f0f 100%);
+            border-radius: 16px;
+            border: 2px solid #2a2a2a;
+            max-width: 900px;
+            margin-left: auto;
+            margin-right: auto;
         }
 
-        .personality-value {
-            color: #666;
+        .footer-cta h3 {
+            color: #f59e0b;
+            font-size: 1.8rem;
+            margin-bottom: 1.25rem;
+        }
+
+        .footer-cta p {
+            color: #c0c0c0;
+            margin-bottom: 1rem;
+            line-height: 1.7;
+            font-size: 1rem;
+        }
+
+        .footer-cta .hint {
+            color: #808080;
+            font-size: 0.9rem;
+            font-style: italic;
         }
 
         @media (max-width: 768px) {
             .theme-grid {
                 grid-template-columns: 1fr;
             }
+
+            body {
+                padding: 1rem;
+            }
+
+            .header h1 {
+                font-size: 1.75rem;
+            }
+
+            .poster-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
         }
     </style>
 </head>
 <body>
     <div class="header">
-        <h1>🎨 LearnR Color Theme Explorer</h1>
-        <p>Explore 4 carefully crafted color themes blending Duolingo's engaging approach with professional credibility.</p>
-        <p style="margin-top: 8px; font-size: 14px;">Each theme includes live UI components, full color palettes, and personality descriptions.</p>
+        <h1>🎬 Nigerian Film Intelligence Database</h1>
+        <p class="subtitle">Color Theme Explorer - shadcn/ui + Tailwind Optimized</p>
+        <p class="hint">Choose the visual identity that embodies Criterion elegance + TikTok velocity</p>
+    </div>
+
+    <div class="instructions">
+        <h3>How to Choose Your Perfect Theme</h3>
+        <ul>
+            <li><strong>Cultural Authenticity:</strong> Each theme is designed to evoke Nigerian cinema heritage while feeling modern</li>
+            <li><strong>Dual Personality:</strong> Look for the balance between Criterion Collection elegance (entry) and TikTok velocity (discovery)</li>
+            <li><strong>Emotional Resonance:</strong> Which colors make you feel pride, excitement, and cultural connection?</li>
+            <li><strong>Live Components:</strong> Scroll through buttons, cards, and the 4-poster grid in each theme</li>
+            <li><strong>Mix & Match:</strong> You can combine elements from different themes - tell BMad Master what you like!</li>
+        </ul>
     </div>
 
     <div class="theme-grid">
-        <!-- Theme 1: Professional Trust -->
-        <div class="theme-card">
+        <!-- Theme 1: Nollywood Gold -->
+        <div class="theme-card" style="--theme-primary: #F59E0B; --theme-secondary: #0F766E; --theme-accent: #DC2626; --theme-primary-rgb: 245, 158, 11;">
             <div class="theme-header">
-                <div class="theme-name" style="color: #1976D2;">Theme 1: Professional Trust</div>
+                <div class="theme-number">1</div>
+                <div class="theme-name">Nollywood Gold</div>
+                <div class="theme-personality">Warm • Rich • Cultural Heritage</div>
                 <div class="theme-description">
-                    A confident, trustworthy palette inspired by top learning platforms. Deep blue conveys expertise and credibility while maintaining approachability for career-focused professionals.
+                    Golden hues reminiscent of classic Nollywood posters and warm Nigerian sunsets. Deep teal provides sophisticated contrast, evoking both tradition and modernity. This theme celebrates cultural pride with editorial elegance - perfect for the "world of movie wonder" entry experience.
+                </div>
+                <div class="theme-best-for">
+                    <strong>Best for:</strong> Maximum cultural authenticity • Appeals to diaspora nostalgia • Warm, welcoming entry • Balances premium feel with accessibility • Strong Nigerian identity
                 </div>
             </div>
 
             <div class="color-palette">
-                <div class="color-swatch" style="background: #1976D2;">
-                    Primary
-                    <div class="color-hex">#1976D2</div>
+                <div class="color-swatch">
+                    <div class="color-box" style="background: #F59E0B;"></div>
+                    <div class="color-label">Primary</div>
+                    <div class="color-hex">#F59E0B</div>
                 </div>
-                <div class="color-swatch" style="background: #42A5F5;">
-                    Secondary
-                    <div class="color-hex">#42A5F5</div>
+                <div class="color-swatch">
+                    <div class="color-box" style="background: #0F766E;"></div>
+                    <div class="color-label">Secondary</div>
+                    <div class="color-hex">#0F766E</div>
                 </div>
-                <div class="color-swatch" style="background: #66BB6A;">
-                    Success
-                    <div class="color-hex">#66BB6A</div>
+                <div class="color-swatch">
+                    <div class="color-box" style="background: #DC2626;"></div>
+                    <div class="color-label">Accent</div>
+                    <div class="color-hex">#DC2626</div>
                 </div>
-                <div class="color-swatch" style="background: #FFA726;">
-                    Warning
-                    <div class="color-hex">#FFA726</div>
+                <div class="color-swatch">
+                    <div class="color-box" style="background: #10B981;"></div>
+                    <div class="color-label">Success</div>
+                    <div class="color-hex">#10B981</div>
                 </div>
-                <div class="color-swatch" style="background: #EF5350;">
-                    Error
-                    <div class="color-hex">#EF5350</div>
-                </div>
-                <div class="color-swatch" style="background: #29B6F6; color: #333;">
-                    Info
-                    <div class="color-hex">#29B6F6</div>
+                <div class="color-swatch">
+                    <div class="color-box" style="background: #1F2937;"></div>
+                    <div class="color-label">Background</div>
+                    <div class="color-hex">#1F2937</div>
                 </div>
             </div>
 
-            <div class="components-section">
-                <div class="section-title">Buttons</div>
-                <div class="button-group">
-                    <button class="btn" style="background: #1976D2; color: white;">Start Learning</button>
-                    <button class="btn" style="background: white; color: #1976D2; border: 2px solid #1976D2;">View Progress</button>
-                    <button class="btn" style="background: #42A5F5; color: white;">Continue</button>
+            <div class="components-preview">
+                <div class="components-title">Live Components</div>
+
+                <div class="component-section">
+                    <div class="component-label">4-Poster Recommendation Grid</div>
+                    <div class="poster-grid">
+                        <div class="poster-box" style="--theme-secondary: #0F766E; --theme-accent: #DC2626;">🎭</div>
+                        <div class="poster-box" style="--theme-secondary: #DC2626; --theme-accent: #F59E0B;">🎬</div>
+                        <div class="poster-box" style="--theme-secondary: #F59E0B; --theme-accent: #0F766E;">🎪</div>
+                        <div class="poster-box" style="--theme-secondary: #0F766E; --theme-accent: #F59E0B;">🎨</div>
+                    </div>
+                    <button class="btn" style="background: #0F766E; color: #fff; width: 100%; font-size: 1.1rem;">NEXT →</button>
                 </div>
 
-                <div class="section-title">Progress Tracking</div>
-                <div class="progress-demo">
-                    <div class="progress-label">
-                        <span>Business Analysis Planning & Monitoring</span>
-                        <span style="color: #1976D2; font-weight: 600;">75%</span>
-                    </div>
-                    <div class="progress-bar">
-                        <div class="progress-fill" style="width: 75%; background: #1976D2;"></div>
-                    </div>
-                </div>
-                <div class="progress-demo">
-                    <div class="progress-label">
-                        <span>Requirements Elicitation</span>
-                        <span style="color: #66BB6A; font-weight: 600;">92%</span>
-                    </div>
-                    <div class="progress-bar">
-                        <div class="progress-fill" style="width: 92%; background: #66BB6A;"></div>
+                <div class="component-section">
+                    <div class="component-label">Buttons</div>
+                    <div class="button-group">
+                        <button class="btn" style="background: #F59E0B; color: #000;">Rate Film</button>
+                        <button class="btn" style="background: #0F766E; color: #fff;">Add to Collection</button>
+                        <button class="btn" style="background: transparent; border: 2px solid #F59E0B; color: #F59E0B;">Watch Trailer</button>
                     </div>
                 </div>
 
-                <div class="section-title">Dashboard Card</div>
-                <div class="card-demo" style="background: white; border: 1px solid #e0e0e0;">
-                    <div style="font-weight: 600; margin-bottom: 8px; color: #333;">Today's Learning Session</div>
-                    <div style="color: #666; font-size: 14px; margin-bottom: 12px;">You have 3 reviews due and 12 new questions ready</div>
-                    <button class="btn" style="background: #1976D2; color: white; width: 100%;">Begin Session</button>
+                <div class="component-section">
+                    <div class="component-label">Film Card</div>
+                    <div class="card">
+                        <div class="card-title" style="color: #F59E0B;">King of Boys</div>
+                        <div class="card-text">A businesswoman navigates the dangerous intersection of politics and crime in Lagos...</div>
+                        <div>
+                            <span class="badge" style="background: #F59E0B; color: #000;">Drama</span>
+                            <span class="badge" style="background: #0F766E; color: #fff;">2018</span>
+                            <span class="badge" style="background: #DC2626; color: #fff;">⭐ 4.8</span>
+                            <span class="badge" style="background: #10B981; color: #fff;">Hidden Gem</span>
+                        </div>
+                    </div>
                 </div>
 
-                <div class="section-title">Feedback Messages</div>
-                <div class="alert" style="background: #E3F2FD; color: #1565C0; border-left: 4px solid #1976D2;">
-                    <span>ℹ️</span> Your next review session starts in 2 hours
-                </div>
-                <div class="alert" style="background: #E8F5E9; color: #2E7D32; border-left: 4px solid #66BB6A;">
-                    <span>✓</span> Correct! Great job understanding this concept.
-                </div>
-                <div class="alert" style="background: #FFECB3; color: #F57C00; border-left: 4px solid #FFA726;">
-                    <span>⚠</span> You have 5 overdue review questions
+                <div class="component-section">
+                    <div class="component-label">Search Input</div>
+                    <input type="text" class="form-input" placeholder="Search Nigerian films..." style="border-color: #2a2a2a;" />
                 </div>
 
-                <div class="section-title">Form Input</div>
-                <input type="text" class="input-demo" placeholder="Enter your answer..."
-                    style="border: 2px solid #e0e0e0; color: #333;"
-                    onfocus="this.style.borderColor='#1976D2'; this.style.outline='none';"
-                    onblur="this.style.borderColor='#e0e0e0';">
-            </div>
-
-            <div class="theme-personality">
-                <div class="personality-item">
-                    <span class="personality-label">Emotional Impact:</span>
-                    <span class="personality-value">Trustworthy, Competent, Focused</span>
-                </div>
-                <div class="personality-item">
-                    <span class="personality-label">Best For:</span>
-                    <span class="personality-value">Career-focused professionals, corporate learners, serious exam prep</span>
-                </div>
-                <div class="personality-item">
-                    <span class="personality-label">Visual Style:</span>
-                    <span class="personality-value">Professional, clean, data-driven</span>
+                <div class="component-section">
+                    <div class="component-label">Alerts</div>
+                    <div class="alert" style="background: rgba(16, 185, 129, 0.1); border-color: #10B981; color: #10B981;">
+                        <span class="alert-icon">✓</span>
+                        <span>Film added to "Best Nollywood Thrillers" collection!</span>
+                    </div>
+                    <div class="alert" style="background: rgba(239, 68, 68, 0.1); border-color: #EF4444; color: #EF4444;">
+                        <span class="alert-icon">!</span>
+                        <span>Rate at least 5 films to unlock personalized recommendations</span>
+                    </div>
                 </div>
             </div>
         </div>
 
-        <!-- Theme 2: Encouraging Progress -->
-        <div class="theme-card">
+        <!-- Theme 2: Cinema Noir -->
+        <div class="theme-card" style="--theme-primary: #A855F7; --theme-secondary: #D97706; --theme-accent: #EC4899; --theme-primary-rgb: 168, 85, 247;">
             <div class="theme-header">
-                <div class="theme-name" style="color: #43A047;">Theme 2: Encouraging Progress</div>
+                <div class="theme-number">2</div>
+                <div class="theme-name">Cinema Noir</div>
+                <div class="theme-personality">Sophisticated • Dramatic • Premium</div>
                 <div class="theme-description">
-                    Inspired by Duolingo but matured for professionals. Green emphasizes growth, achievement, and forward momentum. Balances encouragement with credibility for adult learners.
+                    Deep purples and gold accents create a cinematic, premium atmosphere that channels Criterion Collection sophistication with dramatic flair. This theme emphasizes film-as-art, perfect for positioning Nigerian cinema as culturally significant and intellectually valuable.
+                </div>
+                <div class="theme-best-for">
+                    <strong>Best for:</strong> Maximum Criterion aesthetic • Premium positioning • Film cinephile appeal • Sophisticated editorial voice • Standing out from YouTube/IMDb
                 </div>
             </div>
 
             <div class="color-palette">
-                <div class="color-swatch" style="background: #43A047;">
-                    Primary
-                    <div class="color-hex">#43A047</div>
+                <div class="color-swatch">
+                    <div class="color-box" style="background: #A855F7;"></div>
+                    <div class="color-label">Primary</div>
+                    <div class="color-hex">#A855F7</div>
                 </div>
-                <div class="color-swatch" style="background: #66BB6A;">
-                    Secondary
-                    <div class="color-hex">#66BB6A</div>
+                <div class="color-swatch">
+                    <div class="color-box" style="background: #D97706;"></div>
+                    <div class="color-label">Secondary</div>
+                    <div class="color-hex">#D97706</div>
                 </div>
-                <div class="color-swatch" style="background: #2E7D32;">
-                    Success
-                    <div class="color-hex">#2E7D32</div>
+                <div class="color-swatch">
+                    <div class="color-box" style="background: #EC4899;"></div>
+                    <div class="color-label">Accent</div>
+                    <div class="color-hex">#EC4899</div>
                 </div>
-                <div class="color-swatch" style="background: #FB8C00;">
-                    Warning
-                    <div class="color-hex">#FB8C00</div>
+                <div class="color-swatch">
+                    <div class="color-box" style="background: #10B981;"></div>
+                    <div class="color-label">Success</div>
+                    <div class="color-hex">#10B981</div>
                 </div>
-                <div class="color-swatch" style="background: #E53935;">
-                    Error
-                    <div class="color-hex">#E53935</div>
-                </div>
-                <div class="color-swatch" style="background: #1976D2; color: white;">
-                    Info
-                    <div class="color-hex">#1976D2</div>
+                <div class="color-swatch">
+                    <div class="color-box" style="background: #18181B;"></div>
+                    <div class="color-label">Background</div>
+                    <div class="color-hex">#18181B</div>
                 </div>
             </div>
 
-            <div class="components-section">
-                <div class="section-title">Buttons</div>
-                <div class="button-group">
-                    <button class="btn" style="background: #43A047; color: white;">Start Learning</button>
-                    <button class="btn" style="background: white; color: #43A047; border: 2px solid #43A047;">View Progress</button>
-                    <button class="btn" style="background: #66BB6A; color: white;">Continue</button>
+            <div class="components-preview">
+                <div class="components-title">Live Components</div>
+
+                <div class="component-section">
+                    <div class="component-label">4-Poster Recommendation Grid</div>
+                    <div class="poster-grid">
+                        <div class="poster-box" style="--theme-secondary: #A855F7; --theme-accent: #EC4899;">🎭</div>
+                        <div class="poster-box" style="--theme-secondary: #D97706; --theme-accent: #A855F7;">🎬</div>
+                        <div class="poster-box" style="--theme-secondary: #EC4899; --theme-accent: #D97706;">🎪</div>
+                        <div class="poster-box" style="--theme-secondary: #A855F7; --theme-accent: #D97706;">🎨</div>
+                    </div>
+                    <button class="btn" style="background: #D97706; color: #fff; width: 100%; font-size: 1.1rem;">NEXT →</button>
                 </div>
 
-                <div class="section-title">Progress Tracking</div>
-                <div class="progress-demo">
-                    <div class="progress-label">
-                        <span>Business Analysis Planning & Monitoring</span>
-                        <span style="color: #43A047; font-weight: 600;">75%</span>
-                    </div>
-                    <div class="progress-bar">
-                        <div class="progress-fill" style="width: 75%; background: #43A047;"></div>
-                    </div>
-                </div>
-                <div class="progress-demo">
-                    <div class="progress-label">
-                        <span>Requirements Elicitation</span>
-                        <span style="color: #2E7D32; font-weight: 600;">92%</span>
-                    </div>
-                    <div class="progress-bar">
-                        <div class="progress-fill" style="width: 92%; background: #2E7D32;"></div>
+                <div class="component-section">
+                    <div class="component-label">Buttons</div>
+                    <div class="button-group">
+                        <button class="btn" style="background: #A855F7; color: #fff;">Rate Film</button>
+                        <button class="btn" style="background: #D97706; color: #fff;">Add to Collection</button>
+                        <button class="btn" style="background: transparent; border: 2px solid #A855F7; color: #A855F7;">Watch Trailer</button>
                     </div>
                 </div>
 
-                <div class="section-title">Dashboard Card</div>
-                <div class="card-demo" style="background: white; border: 1px solid #e0e0e0;">
-                    <div style="font-weight: 600; margin-bottom: 8px; color: #333;">Today's Learning Session</div>
-                    <div style="color: #666; font-size: 14px; margin-bottom: 12px;">You have 3 reviews due and 12 new questions ready</div>
-                    <button class="btn" style="background: #43A047; color: white; width: 100%;">Begin Session</button>
+                <div class="component-section">
+                    <div class="component-label">Film Card</div>
+                    <div class="card">
+                        <div class="card-title" style="color: #A855F7;">King of Boys</div>
+                        <div class="card-text">A businesswoman navigates the dangerous intersection of politics and crime in Lagos...</div>
+                        <div>
+                            <span class="badge" style="background: #A855F7; color: #fff;">Drama</span>
+                            <span class="badge" style="background: #D97706; color: #fff;">2018</span>
+                            <span class="badge" style="background: #EC4899; color: #fff;">⭐ 4.8</span>
+                            <span class="badge" style="background: #10B981; color: #fff;">Hidden Gem</span>
+                        </div>
+                    </div>
                 </div>
 
-                <div class="section-title">Feedback Messages</div>
-                <div class="alert" style="background: #E3F2FD; color: #0D47A1; border-left: 4px solid #1976D2;">
-                    <span>ℹ️</span> Your next review session starts in 2 hours
-                </div>
-                <div class="alert" style="background: #E8F5E9; color: #1B5E20; border-left: 4px solid #43A047;">
-                    <span>✓</span> Correct! Great job understanding this concept.
-                </div>
-                <div class="alert" style="background: #FFF3E0; color: #E65100; border-left: 4px solid #FB8C00;">
-                    <span>⚠</span> You have 5 overdue review questions
+                <div class="component-section">
+                    <div class="component-label">Search Input</div>
+                    <input type="text" class="form-input" placeholder="Search Nigerian films..." style="border-color: #27272A; background: #27272A;" />
                 </div>
 
-                <div class="section-title">Form Input</div>
-                <input type="text" class="input-demo" placeholder="Enter your answer..."
-                    style="border: 2px solid #e0e0e0; color: #333;"
-                    onfocus="this.style.borderColor='#43A047'; this.style.outline='none';"
-                    onblur="this.style.borderColor='#e0e0e0';">
-            </div>
-
-            <div class="theme-personality">
-                <div class="personality-item">
-                    <span class="personality-label">Emotional Impact:</span>
-                    <span class="personality-value">Encouraging, Growth-oriented, Positive</span>
-                </div>
-                <div class="personality-item">
-                    <span class="personality-label">Best For:</span>
-                    <span class="personality-value">Motivated learners, progress enthusiasts, achievement-focused users</span>
-                </div>
-                <div class="personality-item">
-                    <span class="personality-label">Visual Style:</span>
-                    <span class="personality-value">Motivational, friendly, optimistic</span>
+                <div class="component-section">
+                    <div class="component-label">Alerts</div>
+                    <div class="alert" style="background: rgba(16, 185, 129, 0.1); border-color: #10B981; color: #10B981;">
+                        <span class="alert-icon">✓</span>
+                        <span>Film added to "Best Nollywood Thrillers" collection!</span>
+                    </div>
+                    <div class="alert" style="background: rgba(239, 68, 68, 0.1); border-color: #EF4444; color: #EF4444;">
+                        <span class="alert-icon">!</span>
+                        <span>Rate at least 5 films to unlock personalized recommendations</span>
+                    </div>
                 </div>
             </div>
         </div>
 
-        <!-- Theme 3: Focused Learning -->
-        <div class="theme-card">
+        <!-- Theme 3: Vibrant Lagos -->
+        <div class="theme-card" style="--theme-primary: #F97316; --theme-secondary: #1E40AF; --theme-accent: #EAB308; --theme-primary-rgb: 249, 115, 22;">
             <div class="theme-header">
-                <div class="theme-name" style="color: #5E35B1;">Theme 3: Focused Learning</div>
+                <div class="theme-number">3</div>
+                <div class="theme-name">Vibrant Lagos</div>
+                <div class="theme-personality">Bold • Energetic • Modern</div>
                 <div class="theme-description">
-                    Purple/indigo palette evokes creativity, wisdom, and deep focus. Perfect for sustained concentration during study sessions while maintaining visual interest and sophistication.
+                    Energetic orange and deep blue capture the vibrancy of Lagos and modern Nigerian creativity. This theme emphasizes the "TikTok velocity" aspect - bold, fast, engaging. Colors pop off the screen, encouraging rapid discovery and addictive iteration through recommendations.
+                </div>
+                <div class="theme-best-for">
+                    <strong>Best for:</strong> Maximum engagement velocity • Appeals to younger diaspora (25-35) • Social-first positioning • Addictive discovery experience • High energy and memorability
                 </div>
             </div>
 
             <div class="color-palette">
-                <div class="color-swatch" style="background: #5E35B1;">
-                    Primary
-                    <div class="color-hex">#5E35B1</div>
+                <div class="color-swatch">
+                    <div class="color-box" style="background: #F97316;"></div>
+                    <div class="color-label">Primary</div>
+                    <div class="color-hex">#F97316</div>
                 </div>
-                <div class="color-swatch" style="background: #7E57C2;">
-                    Secondary
-                    <div class="color-hex">#7E57C2</div>
+                <div class="color-swatch">
+                    <div class="color-box" style="background: #1E40AF;"></div>
+                    <div class="color-label">Secondary</div>
+                    <div class="color-hex">#1E40AF</div>
                 </div>
-                <div class="color-swatch" style="background: #66BB6A;">
-                    Success
-                    <div class="color-hex">#66BB6A</div>
+                <div class="color-swatch">
+                    <div class="color-box" style="background: #EAB308;"></div>
+                    <div class="color-label">Accent</div>
+                    <div class="color-hex">#EAB308</div>
                 </div>
-                <div class="color-swatch" style="background: #FF9800;">
-                    Warning
-                    <div class="color-hex">#FF9800</div>
+                <div class="color-swatch">
+                    <div class="color-box" style="background: #22C55E;"></div>
+                    <div class="color-label">Success</div>
+                    <div class="color-hex">#22C55E</div>
                 </div>
-                <div class="color-swatch" style="background: #F4433 6;">
-                    Error
-                    <div class="color-hex">#F44336</div>
-                </div>
-                <div class="color-swatch" style="background: #42A5F5; color: white;">
-                    Info
-                    <div class="color-hex">#42A5F5</div>
+                <div class="color-swatch">
+                    <div class="color-box" style="background: #0F172A;"></div>
+                    <div class="color-label">Background</div>
+                    <div class="color-hex">#0F172A</div>
                 </div>
             </div>
 
-            <div class="components-section">
-                <div class="section-title">Buttons</div>
-                <div class="button-group">
-                    <button class="btn" style="background: #5E35B1; color: white;">Start Learning</button>
-                    <button class="btn" style="background: white; color: #5E35B1; border: 2px solid #5E35B1;">View Progress</button>
-                    <button class="btn" style="background: #7E57C2; color: white;">Continue</button>
+            <div class="components-preview">
+                <div class="components-title">Live Components</div>
+
+                <div class="component-section">
+                    <div class="component-label">4-Poster Recommendation Grid</div>
+                    <div class="poster-grid">
+                        <div class="poster-box" style="--theme-secondary: #F97316; --theme-accent: #EAB308;">🎭</div>
+                        <div class="poster-box" style="--theme-secondary: #1E40AF; --theme-accent: #F97316;">🎬</div>
+                        <div class="poster-box" style="--theme-secondary: #EAB308; --theme-accent: #1E40AF;">🎪</div>
+                        <div class="poster-box" style="--theme-secondary: #F97316; --theme-accent: #1E40AF;">🎨</div>
+                    </div>
+                    <button class="btn" style="background: #1E40AF; color: #fff; width: 100%; font-size: 1.1rem;">NEXT →</button>
                 </div>
 
-                <div class="section-title">Progress Tracking</div>
-                <div class="progress-demo">
-                    <div class="progress-label">
-                        <span>Business Analysis Planning & Monitoring</span>
-                        <span style="color: #5E35B1; font-weight: 600;">75%</span>
-                    </div>
-                    <div class="progress-bar">
-                        <div class="progress-fill" style="width: 75%; background: #5E35B1;"></div>
-                    </div>
-                </div>
-                <div class="progress-demo">
-                    <div class="progress-label">
-                        <span>Requirements Elicitation</span>
-                        <span style="color: #66BB6A; font-weight: 600;">92%</span>
-                    </div>
-                    <div class="progress-bar">
-                        <div class="progress-fill" style="width: 92%; background: #66BB6A;"></div>
+                <div class="component-section">
+                    <div class="component-label">Buttons</div>
+                    <div class="button-group">
+                        <button class="btn" style="background: #F97316; color: #fff;">Rate Film</button>
+                        <button class="btn" style="background: #1E40AF; color: #fff;">Add to Collection</button>
+                        <button class="btn" style="background: transparent; border: 2px solid #F97316; color: #F97316;">Watch Trailer</button>
                     </div>
                 </div>
 
-                <div class="section-title">Dashboard Card</div>
-                <div class="card-demo" style="background: white; border: 1px solid #e0e0e0;">
-                    <div style="font-weight: 600; margin-bottom: 8px; color: #333;">Today's Learning Session</div>
-                    <div style="color: #666; font-size: 14px; margin-bottom: 12px;">You have 3 reviews due and 12 new questions ready</div>
-                    <button class="btn" style="background: #5E35B1; color: white; width: 100%;">Begin Session</button>
+                <div class="component-section">
+                    <div class="component-label">Film Card</div>
+                    <div class="card">
+                        <div class="card-title" style="color: #F97316;">King of Boys</div>
+                        <div class="card-text">A businesswoman navigates the dangerous intersection of politics and crime in Lagos...</div>
+                        <div>
+                            <span class="badge" style="background: #F97316; color: #fff;">Drama</span>
+                            <span class="badge" style="background: #1E40AF; color: #fff;">2018</span>
+                            <span class="badge" style="background: #EAB308; color: #000;">⭐ 4.8</span>
+                            <span class="badge" style="background: #22C55E; color: #fff;">Hidden Gem</span>
+                        </div>
+                    </div>
                 </div>
 
-                <div class="section-title">Feedback Messages</div>
-                <div class="alert" style="background: #EDE7F6; color: #4527A0; border-left: 4px solid #5E35B1;">
-                    <span>ℹ️</span> Your next review session starts in 2 hours
-                </div>
-                <div class="alert" style="background: #E8F5E9; color: #2E7D32; border-left: 4px solid #66BB6A;">
-                    <span>✓</span> Correct! Great job understanding this concept.
-                </div>
-                <div class="alert" style="background: #FFF3E0; color: #EF6C00; border-left: 4px solid #FF9800;">
-                    <span>⚠</span> You have 5 overdue review questions
+                <div class="component-section">
+                    <div class="component-label">Search Input</div>
+                    <input type="text" class="form-input" placeholder="Search Nigerian films..." style="border-color: #1E293B; background: #1E293B;" />
                 </div>
 
-                <div class="section-title">Form Input</div>
-                <input type="text" class="input-demo" placeholder="Enter your answer..."
-                    style="border: 2px solid #e0e0e0; color: #333;"
-                    onfocus="this.style.borderColor='#5E35B1'; this.style.outline='none';"
-                    onblur="this.style.borderColor='#e0e0e0';">
-            </div>
-
-            <div class="theme-personality">
-                <div class="personality-item">
-                    <span class="personality-label">Emotional Impact:</span>
-                    <span class="personality-value">Focused, Creative, Insightful</span>
-                </div>
-                <div class="personality-item">
-                    <span class="personality-label">Best For:</span>
-                    <span class="personality-value">Deep learners, analytical thinkers, premium positioning</span>
-                </div>
-                <div class="personality-item">
-                    <span class="personality-label">Visual Style:</span>
-                    <span class="personality-value">Sophisticated, calm, intellectually stimulating</span>
+                <div class="component-section">
+                    <div class="component-label">Alerts</div>
+                    <div class="alert" style="background: rgba(34, 197, 94, 0.1); border-color: #22C55E; color: #22C55E;">
+                        <span class="alert-icon">✓</span>
+                        <span>Film added to "Best Nollywood Thrillers" collection!</span>
+                    </div>
+                    <div class="alert" style="background: rgba(239, 68, 68, 0.1); border-color: #EF4444; color: #EF4444;">
+                        <span class="alert-icon">!</span>
+                        <span>Rate at least 5 films to unlock personalized recommendations</span>
+                    </div>
                 </div>
             </div>
         </div>
 
-        <!-- Theme 4: Energetic Achievement -->
-        <div class="theme-card">
+        <!-- Theme 4: Emerald Screen -->
+        <div class="theme-card" style="--theme-primary: #059669; --theme-secondary: #D97706; --theme-accent: #14B8A6; --theme-primary-rgb: 5, 150, 105;">
             <div class="theme-header">
-                <div class="theme-name" style="color: #FF6F42;">Theme 4: Energetic Achievement</div>
+                <div class="theme-number">4</div>
+                <div class="theme-name">Emerald Screen</div>
+                <div class="theme-personality">Fresh • Modern • Balanced</div>
                 <div class="theme-description">
-                    Warm coral/orange paired with trustworthy blue creates energy and reliability. Stands out visually while maintaining professional credibility. Great for engagement and motivation.
+                    Emerald green with warm amber creates a fresh, modern take on Nigerian colors (green from the flag). This theme balances cultural reference with contemporary digital design - clean, approachable, yet distinctive. A perfect middle ground between heritage and innovation.
+                </div>
+                <div class="theme-best-for">
+                    <strong>Best for:</strong> Balance between heritage and modernity • Approachable yet unique • Broad appeal across age groups (25-45) • Differentiates from competitors • Fresh take on cultural identity
                 </div>
             </div>
 
             <div class="color-palette">
-                <div class="color-swatch" style="background: #FF6F42;">
-                    Primary
-                    <div class="color-hex">#FF6F42</div>
+                <div class="color-swatch">
+                    <div class="color-box" style="background: #059669;"></div>
+                    <div class="color-label">Primary</div>
+                    <div class="color-hex">#059669</div>
                 </div>
-                <div class="color-swatch" style="background: #1976D2;">
-                    Secondary
-                    <div class="color-hex">#1976D2</div>
+                <div class="color-swatch">
+                    <div class="color-box" style="background: #D97706;"></div>
+                    <div class="color-label">Secondary</div>
+                    <div class="color-hex">#D97706</div>
                 </div>
-                <div class="color-swatch" style="background: #66BB6A;">
-                    Success
-                    <div class="color-hex">#66BB6A</div>
+                <div class="color-swatch">
+                    <div class="color-box" style="background: #14B8A6;"></div>
+                    <div class="color-label">Accent</div>
+                    <div class="color-hex">#14B8A6</div>
                 </div>
-                <div class="color-swatch" style="background: #FFA726;">
-                    Warning
-                    <div class="color-hex">#FFA726</div>
+                <div class="color-swatch">
+                    <div class="color-box" style="background: #10B981;"></div>
+                    <div class="color-label">Success</div>
+                    <div class="color-hex">#10B981</div>
                 </div>
-                <div class="color-swatch" style="background: #E53935;">
-                    Error
-                    <div class="color-hex">#E53935</div>
-                </div>
-                <div class="color-swatch" style="background: #29B6F6; color: #333;">
-                    Info
-                    <div class="color-hex">#29B6F6</div>
+                <div class="color-swatch">
+                    <div class="color-box" style="background: #111827;"></div>
+                    <div class="color-label">Background</div>
+                    <div class="color-hex">#111827</div>
                 </div>
             </div>
 
-            <div class="components-section">
-                <div class="section-title">Buttons</div>
-                <div class="button-group">
-                    <button class="btn" style="background: #FF6F42; color: white;">Start Learning</button>
-                    <button class="btn" style="background: white; color: #FF6F42; border: 2px solid #FF6F42;">View Progress</button>
-                    <button class="btn" style="background: #1976D2; color: white;">Continue</button>
+            <div class="components-preview">
+                <div class="components-title">Live Components</div>
+
+                <div class="component-section">
+                    <div class="component-label">4-Poster Recommendation Grid</div>
+                    <div class="poster-grid">
+                        <div class="poster-box" style="--theme-secondary: #059669; --theme-accent: #14B8A6;">🎭</div>
+                        <div class="poster-box" style="--theme-secondary: #D97706; --theme-accent: #059669;">🎬</div>
+                        <div class="poster-box" style="--theme-secondary: #14B8A6; --theme-accent: #D97706;">🎪</div>
+                        <div class="poster-box" style="--theme-secondary: #059669; --theme-accent: #D97706;">🎨</div>
+                    </div>
+                    <button class="btn" style="background: #D97706; color: #fff; width: 100%; font-size: 1.1rem;">NEXT →</button>
                 </div>
 
-                <div class="section-title">Progress Tracking</div>
-                <div class="progress-demo">
-                    <div class="progress-label">
-                        <span>Business Analysis Planning & Monitoring</span>
-                        <span style="color: #FF6F42; font-weight: 600;">75%</span>
-                    </div>
-                    <div class="progress-bar">
-                        <div class="progress-fill" style="width: 75%; background: #FF6F42;"></div>
-                    </div>
-                </div>
-                <div class="progress-demo">
-                    <div class="progress-label">
-                        <span>Requirements Elicitation</span>
-                        <span style="color: #66BB6A; font-weight: 600;">92%</span>
-                    </div>
-                    <div class="progress-bar">
-                        <div class="progress-fill" style="width: 92%; background: #66BB6A;"></div>
+                <div class="component-section">
+                    <div class="component-label">Buttons</div>
+                    <div class="button-group">
+                        <button class="btn" style="background: #059669; color: #fff;">Rate Film</button>
+                        <button class="btn" style="background: #D97706; color: #fff;">Add to Collection</button>
+                        <button class="btn" style="background: transparent; border: 2px solid #059669; color: #059669;">Watch Trailer</button>
                     </div>
                 </div>
 
-                <div class="section-title">Dashboard Card</div>
-                <div class="card-demo" style="background: white; border: 1px solid #e0e0e0;">
-                    <div style="font-weight: 600; margin-bottom: 8px; color: #333;">Today's Learning Session</div>
-                    <div style="color: #666; font-size: 14px; margin-bottom: 12px;">You have 3 reviews due and 12 new questions ready</div>
-                    <button class="btn" style="background: #FF6F42; color: white; width: 100%;">Begin Session</button>
+                <div class="component-section">
+                    <div class="component-label">Film Card</div>
+                    <div class="card">
+                        <div class="card-title" style="color: #059669;">King of Boys</div>
+                        <div class="card-text">A businesswoman navigates the dangerous intersection of politics and crime in Lagos...</div>
+                        <div>
+                            <span class="badge" style="background: #059669; color: #fff;">Drama</span>
+                            <span class="badge" style="background: #D97706; color: #fff;">2018</span>
+                            <span class="badge" style="background: #14B8A6; color: #fff;">⭐ 4.8</span>
+                            <span class="badge" style="background: #10B981; color: #fff;">Hidden Gem</span>
+                        </div>
+                    </div>
                 </div>
 
-                <div class="section-title">Feedback Messages</div>
-                <div class="alert" style="background: #E1F5FE; color: #01579B; border-left: 4px solid #1976D2;">
-                    <span>ℹ️</span> Your next review session starts in 2 hours
-                </div>
-                <div class="alert" style="background: #E8F5E9; color: #2E7D32; border-left: 4px solid #66BB6A;">
-                    <span>✓</span> Correct! Great job understanding this concept.
-                </div>
-                <div class="alert" style="background: #FFEBEE; color: #C62828; border-left: 4px solid #E53935;">
-                    <span>⚠</span> You have 5 overdue review questions
+                <div class="component-section">
+                    <div class="component-label">Search Input</div>
+                    <input type="text" class="form-input" placeholder="Search Nigerian films..." style="border-color: #1F2937; background: #1F2937;" />
                 </div>
 
-                <div class="section-title">Form Input</div>
-                <input type="text" class="input-demo" placeholder="Enter your answer..."
-                    style="border: 2px solid #e0e0e0; color: #333;"
-                    onfocus="this.style.borderColor='#FF6F42'; this.style.outline='none';"
-                    onblur="this.style.borderColor='#e0e0e0';">
-            </div>
-
-            <div class="theme-personality">
-                <div class="personality-item">
-                    <span class="personality-label">Emotional Impact:</span>
-                    <span class="personality-value">Energetic, Confident, Dynamic</span>
-                </div>
-                <div class="personality-item">
-                    <span class="personality-label">Best For:</span>
-                    <span class="personality-value">Engagement-focused, memorable branding, standing out from competitors</span>
-                </div>
-                <div class="personality-item">
-                    <span class="personality-label">Visual Style:</span>
-                    <span class="personality-value">Bold, warm, approachable yet professional</span>
+                <div class="component-section">
+                    <div class="component-label">Alerts</div>
+                    <div class="alert" style="background: rgba(16, 185, 129, 0.1); border-color: #10B981; color: #10B981;">
+                        <span class="alert-icon">✓</span>
+                        <span>Film added to "Best Nollywood Thrillers" collection!</span>
+                    </div>
+                    <div class="alert" style="background: rgba(239, 68, 68, 0.1); border-color: #EF4444; color: #EF4444;">
+                        <span class="alert-icon">!</span>
+                        <span>Rate at least 5 films to unlock personalized recommendations</span>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 
-    <div class="header" style="margin-top: 0;">
-        <h2 style="font-size: 24px; margin-bottom: 15px;">👆 Which theme speaks to you?</h2>
-        <p style="margin-bottom: 10px;">Take your time exploring each theme. Notice how different colors make you feel.</p>
-        <p style="font-size: 14px; color: #666;">
-            <strong>Theme 1:</strong> Trustworthy & professional (LinkedIn/Coursera vibe)<br>
-            <strong>Theme 2:</strong> Encouraging & growth-focused (Duolingo matured)<br>
-            <strong>Theme 3:</strong> Focused & sophisticated (premium learning)<br>
-            <strong>Theme 4:</strong> Energetic & memorable (stands out, warm + trust)
+    <div class="footer-cta">
+        <h3>Ready to Choose Your Theme?</h3>
+        <p>
+            Each theme has been carefully designed for shadcn/ui + Tailwind CSS. All colors work beautifully with dark mode and meet WCAG accessibility standards.
+        </p>
+        <p>
+            You can select one theme as-is, or mix elements - for example, use <strong>Nollywood Gold</strong>'s warm cultural tones with <strong>Cinema Noir</strong>'s sophisticated depth.
+        </p>
+        <p class="hint">
+            Return to the conversation and tell BMad Master which theme resonates with your vision, or how you'd like to blend them!
         </p>
     </div>
 </body>
